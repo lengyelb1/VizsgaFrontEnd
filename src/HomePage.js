@@ -7,7 +7,7 @@ const HomePage = () => {
 
     useEffect(() => {
         setFetchPending(true);
-        fetch("https://localhost:7043/UserPost", {})
+        fetch("https://connect2getherapi20240212180941.azurewebsites.net/UserPost", {})
         .then((res) => res.json())
         .then((post) => setPosts(post))
         .catch(console.log)
