@@ -1,6 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Logo from './Back4.png';
+import axios from 'axios';
+
 
 const LoginPageV2 = () => {
 
@@ -11,15 +13,31 @@ const LoginPageV2 = () => {
         </div>
         <div className="d-flex vw-100" style={{ background: '#A8F231'}}>
           <div className="d-flex vw-100" style={{ borderRadius:'0px 50px 0px 0px', overflow:'hidden'}}>
-              <Form className='bg-dark p-2 vw-100 ' >
+              <Form className='bg-dark p-2 vw-100 ' onSubmit={(e)=>{
+                e.preventDefault();
+                axios({
+                  method: 'post',
+                  url: 'https://localhost:7043/Auth/login',
+                  data: {
+                    userName: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                  }
+                })
+                .then((resp) => {
+                  console.log(resp)
+                })
+                .catch((error)=> {
+                  console.log(error)
+                })
+              }}>
                 <Form.Label className='h1'>Login</Form.Label>
-                <Form.Group className="mb-3 text-light" controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email"/>
+                <Form.Group className="mb-3 text-light" controlId="formBasic">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control id='username' name='username' type="username" placeholder="Enter username"/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password"/>
+                  <Form.Control id='password' name='password' type="password" placeholder="Password"/>
                   <Form.Text >
                     <a href='' className="text-muted">Forgot your password?</a>
                   </Form.Text>

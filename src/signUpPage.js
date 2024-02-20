@@ -1,6 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Logo from './Back4.png';
+import axios from 'axios';
+
 
 const SignUpPage = () => {
 
@@ -11,8 +13,29 @@ const SignUpPage = () => {
         </div>
         <div className="d-flex vw-100" style={{ background: '#A8F231'}}>
           <div className="d-flex vw-100" style={{ borderRadius:'0px 50px 0px 0px', overflow:'hidden'}}>
-              <Form className='bg-dark p-2 vw-100 ' >
+              <Form className='bg-dark p-2 vw-100' onSubmit={(e)=>{
+                e.preventDefault();
+                axios({
+                  method: 'post',
+                  url: 'https://localhost:7043/Auth/Register',
+                  data: {
+                    userName: document.getElementById('username').value,
+                    password: document.getElementById('password').value,
+                    email: document.getElementById('email').value
+                  }
+                })
+                .then((resp) => {
+                  console.log(resp)
+                })
+                .catch((error)=> {
+                  console.log(error)
+                })
+              }}>
                 <Form.Label className='h1'>Sign Up</Form.Label>
+                <Form.Group className="mb-3 text-light" controlId="formBasicEmail">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control type="username" placeholder="Enter username"/>
+                </Form.Group>
                 <Form.Group className="mb-3 text-light" controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control type="email" placeholder="Enter email"/>
@@ -20,10 +43,6 @@ const SignUpPage = () => {
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" placeholder="Password"/>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Confirm password</Form.Label>
-                  <Form.Control type="password2" placeholder="Password Again"/>
                 </Form.Group>
                 <Button variant="Dark" className='hover-overlay text-dark fw-bold hover-shadow float-end' type="submit" style={{background: '#A8F231'}}>
                   Submit
