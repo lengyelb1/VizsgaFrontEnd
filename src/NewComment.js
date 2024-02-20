@@ -6,7 +6,7 @@ const NewComment = (proms) => {
             <form onSubmit={(e) => {
                 e.persist();
                 e.preventDefault();
-                fetch("https://connect2getherapi20240212180941.azurewebsites.net/Comment", {
+                fetch("https://localhost:7043/Comment", {
                     method: "POST",
                     headers:{
                         "Content-Type": "application/json",
