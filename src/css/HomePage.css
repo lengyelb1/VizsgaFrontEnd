@@ -1,0 +1,14 @@
+.btn-green {
+    background-color: #a8f23100;
+    border: #A8F231 solid 2px;
+    color: #A8F231;
+    font-weight: bolder;
+}
+
+.btn-border {
+    border: #191919 solid 2px;
+}
+ 
+.text-green{
+    color: #A8F231;
+}

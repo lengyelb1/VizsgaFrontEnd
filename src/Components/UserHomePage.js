@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import NewComment from './NewComment';
 
-const HomePage = () => {
+const UserHomePage = () => {
     const [posts, setPosts] = useState([]);
     const [isFetchPending, setFetchPending] = useState(false);
 
