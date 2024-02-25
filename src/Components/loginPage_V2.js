@@ -2,10 +2,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Logo from './Back4.png';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 
 
-const LoginPageV2 = () => {
-
+export default function LoginPageV2 (props) {
+    const navigate = useNavigate();
     return (
     <div className="bg-dark text-light vh-100 vw-100 mx-auto" data-bs-theme="dark">
         <div className='d-flex h-25' style={{ background: 'linear-gradient(to bottom, #00ADB5,#A8F231)',borderRadius:'0px 0px 0px 50px', overflow:'hidden'}}>
@@ -24,7 +26,19 @@ const LoginPageV2 = () => {
                   }
                 })
                 .then((resp) => {
-                  console.log(resp)
+                  if (resp.name =="AxiosError") {
+                    return (alert(resp.response.data))
+                  }else{
+                    localStorage.setItem("token",resp.data);
+                    navigate("/UserHomePage");
+                    
+                    /*
+                    if (jwtDecode(resp.response.data).Permission == props.USER_TYPES.NORMAL_USER) {
+                      navigate("/UserHomePage");
+                    }else if (jwtDecode(resp.response.data).Permission == props.USER_TYPES.ADMIN_USER) {
+                      navigate("/AdminHomePage");
+                    }*/
+                  }
                 })
                 .catch((error)=> {
                   console.log(error)
@@ -57,5 +71,3 @@ const LoginPageV2 = () => {
     </div>
     )
 }
-
-export default LoginPageV2;

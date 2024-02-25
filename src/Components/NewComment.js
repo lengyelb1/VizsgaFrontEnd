@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import '../css/UserHomePage.css';
+
 
 const NewComment = (proms) => {    
     return (
-        <div>
+        <div className=''>
             <form onSubmit={(e) => {
                 e.persist();
                 e.preventDefault();
@@ -18,16 +20,15 @@ const NewComment = (proms) => {
                         "userId": proms.userId
                     }),
                 })
-                .then(() => {
-                    console.log("comment added")
+                .then((resp) => {
+                    console.log(resp)
                 })
                 .catch(console.log);
             }}>
                 <label>
-                    Comment:
-                    <input type="text" name="comment" />
+                    <input type="text" name="comment" placeholder='Say something...' className='input-green'/>
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Post" className='btn-green' />
             </form>
         </div>
     )
