@@ -1,14 +1,14 @@
 .btn-green {
-    background-color: #a8f23100;
-    border: #A8F231 solid 2px;
-    border-radius: 5px;
-    color: #A8F231;
-    font-weight: bolder;
+    background-color: #a8f23100 !important;
+    border: #A8F231 solid 2px !important;
+    border-radius: 5px !important;
+    color: #A8F231 !important;
+    font-weight: bolder !important;
 }
 
 .btn-green :hover{
-    background-color: #a8f231;
-    color: #191919;
+    background-color: #a8f231 !important;
+    color: #191919 !important;
 }
 
 
@@ -39,6 +39,7 @@
     border: #A8F231 solid 2px !important;
     border-radius: 5px;
     color: #A8F231 !important;
+    padding: 5px;
 }
 
 .input-green:active {
