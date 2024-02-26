@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import NewComment from './NewComment';
 import '../css/UserHomePage.css';
+import NewPost from './NewPost';
 
 export default function UserHomePage () {
     const [posts, setPosts] = useState([]);
@@ -74,12 +75,7 @@ export default function UserHomePage () {
               </div>
             </nav>
             <div className="mt-5">
-            <form className='col-md-5 p-2 mx-auto rounded shadow-green text-green'>
-              <div class="mb-3">
-                  <input type="text" name="Post-text" placeholder='Post something...' className='w-100 input-green'/>
-              </div>
-              <button type="submit" class="btn btn-green">Post</button>
-            </form>
+                <NewPost/>
                 <PostsKi posts={posts}/>
             </div>
         </div>)

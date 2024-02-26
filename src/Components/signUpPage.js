@@ -4,7 +4,7 @@ import Logo from './Back4.png';
 import axios from 'axios';
 
 
-const SignUpPage = () => {
+export default function SignUpPage () {
 
     return (
     <div className="bg-dark text-light vh-100 vw-100 mx-auto" data-bs-theme="dark">
@@ -54,5 +54,3 @@ const SignUpPage = () => {
     </div>
     )
 }
-
-export default SignUpPage;
