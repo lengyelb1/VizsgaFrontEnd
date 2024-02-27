@@ -30,7 +30,13 @@ export default function LoginPageV2 (props) {
                     return (alert(resp.response.data))
                   }else{
                     localStorage.setItem("token",resp.data);
-                    navigate("/UserHomePage");
+
+                    if (jwtDecode(localStorage.getItem("token")).role == props.USER_TYPES.ADMIN_USER) {
+                      navigate("/AdminHomePage");                      
+                    }else{
+                      navigate("/UserHomePage");
+                    }
+                    
                     
                     /*
                     if (jwtDecode(resp.response.data).Permission == props.USER_TYPES.NORMAL_USER) {

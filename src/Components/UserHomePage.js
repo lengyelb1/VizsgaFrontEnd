@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import NewComment from './NewComment';
 import '../css/UserHomePage.css';
+import NewPost from './NewPost';
 
 export default function UserHomePage () {
     const [posts, setPosts] = useState([]);
@@ -66,7 +67,7 @@ export default function UserHomePage () {
     if(posts.length > 0){
         return (
         <div className='bg-dark h-100 p-2'>
-            <nav className="navbar navbar-dark bg-dark w-100 border-bottom-green fixed-top">
+            <nav className="navbar navbar-dark bg-dark w-100 border-bottom-green fixed-top shadow">
               <div className="container-fluid">
                 <a className="nav-link text-light" href="/" onClick={()=>{
                     localStorage.setItem("token",undefined)
@@ -74,6 +75,7 @@ export default function UserHomePage () {
               </div>
             </nav>
             <div className="mt-5">
+                <NewPost/>
                 <PostsKi posts={posts}/>
             </div>
         </div>)
