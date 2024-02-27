@@ -8,6 +8,7 @@ import NotFound404 from './Components/NotFound404';
 import UserHomePage from './Components/UserHomePage';
 import { useEffect } from 'react';
 import SignUpPage from './Components/signUpPage';
+import AdminHomePage from './Components/AdminHomePage';
 
 function App() {
   //const navigate = useNavigate();
@@ -19,21 +20,9 @@ function App() {
 
   var ROLES  = "None"
   
-  
 
   useEffect(()=> {
-    RefreshRole()
-    /*switch (ROLES) {
-      case "Default":
-      navigate("UserHomePage")
-      break;
-      case "Admin":
-      navigate("AdminHomePage")
-      break;
-    
-      default:
-        break;
-    }*/
+    RefreshRole()    
   })
   /*
   console.log("Nyers token: "+localStorage.getItem("token"))
@@ -50,7 +39,7 @@ function App() {
         <Route path="/Register" element={<PublicElement> <SignUpPage/> </PublicElement>}></Route>
         <Route path="/Login" element={<PublicElement> <LoginPageV2 USER_TYPES = {USER_TYPES}/> </PublicElement>}></Route>
         <Route path="/UserHomePage" element={<UserElement> <UserHomePage/> </UserElement>}></Route>
-        <Route path="/AdminHomePage" element={<AdminElement> <h1>Admin</h1> </AdminElement>}></Route>
+        <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
         <Route path="*" element={<NotFound404/>}></Route>
       </Routes>
     </BrowserRouter>
@@ -58,6 +47,7 @@ function App() {
 
   function PublicElement({ children })
   {
+    RefreshRole()
     return <>{children}</>
   }
 
@@ -88,7 +78,7 @@ function App() {
     if (localStorage.getItem("token") == "undefined" || localStorage.getItem("token") == undefined) {
     }else{
       //ROLES = localStorage.getItem("token") ? jwtDecode(localStorage.getItem("token")).Permission : 'Default'
-      ROLES = jwtDecode(localStorage.getItem("token")).Permission
+      ROLES = jwtDecode(localStorage.getItem("token")).role
     }
   }
 }
