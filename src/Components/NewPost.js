@@ -4,7 +4,7 @@ export default function NewPost (proms){
             (e) => {
                 e.persist();
                 e.preventDefault();
-                fetch("https://localhost:7043/User", {
+                fetch("http://localhost:7043/User", {
                     method: "POST",
                     headers:{
                         "Content-Type": "application/json",

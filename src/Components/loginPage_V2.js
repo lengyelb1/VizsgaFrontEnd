@@ -19,7 +19,7 @@ export default function LoginPageV2 (props) {
                 e.preventDefault();
                 axios({
                   method: 'post',
-                  url: 'https://localhost:7043/Auth/login',
+                  url: 'http://localhost:7043/Auth/login',
                   data: {
                     userName: document.getElementById('username').value,
                     password: document.getElementById('password').value

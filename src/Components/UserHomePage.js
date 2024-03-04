@@ -9,7 +9,7 @@ export default function UserHomePage () {
 
     useEffect(() => {
         setFetchPending(true);
-        fetch("https://localhost:7043/UserPost", {})
+        fetch("http://localhost:7043/UserPost", {})
         .then((res) => res.json())
         .then((post) => setPosts(post))
         .catch(console.log)
