@@ -82,7 +82,11 @@ function App() {
     if (localStorage.getItem("token") == "undefined" || localStorage.getItem("token") == undefined) {
     }else{
       //ROLES = localStorage.getItem("token") ? jwtDecode(localStorage.getItem("token")).Permission : 'Default'
-      ROLES = jwtDecode(localStorage.getItem("token")).role
+      try {
+        ROLES = jwtDecode(localStorage.getItem("token")).role        
+      } catch (error) {
+        
+      }
     }
   }
 }

@@ -19,7 +19,7 @@ export default function SignUpPage () {
                 e.preventDefault();
                 axios({
                   method: 'post',
-                  url: 'https://localhost:7043/Auth/Register',
+                  url: 'http://localhost:7043/Auth/Register',
                   data: {
                     userName: document.getElementById('username').value,
                     password: document.getElementById('password').value,

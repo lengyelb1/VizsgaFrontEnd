@@ -22,7 +22,7 @@ export default function AdminDeleteUser (prop) {
                     <a className="btn btn-warning" href="../AdminHomePage">Back</a>
                     <a className="btn btn-danger float-end" href="" onClick={(e)=>{
                         e.preventDefault()
-                         fetch(`https://localhost:7043/AdminUsers/id?id=${params.id}`,{method:"DELETE", headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                         fetch(`http://localhost:7043/AdminUsers/id?id=${params.id}`,{method:"DELETE", headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                         .then(()=>{
                             navigate("../AdminHomePage")
                         })

@@ -8,7 +8,7 @@ const NewComment = (proms) => {
             <form onSubmit={(e) => {
                 e.persist();
                 e.preventDefault();
-                fetch("https://localhost:7043/Comment", {
+                fetch("http://localhost:7043/Comment", {
                     method: "POST",
                     headers:{
                         "Content-Type": "application/json",

@@ -7,7 +7,7 @@ export default function AdminHomePage () {
     const [data,setData] = useState([]);
     
     useEffect(()=>{
-        fetch("https://localhost:7043/AdminUsers",{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch("http://localhost:7043/AdminUsers",{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((response) => response.json())
         .then((resp)=> {
             setData(resp)
