@@ -1,3 +1,5 @@
+import '../User/UserHomePage.css';
+
 export default function NewPost (proms){
     return (
         <form className='col-md-5 p-2 mx-auto rounded shadow-green text-green' onSubmit={

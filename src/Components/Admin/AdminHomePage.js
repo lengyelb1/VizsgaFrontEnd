@@ -27,8 +27,13 @@ export default function AdminHomePage () {
             </nav>
             <div className="mt-5">
                 <br/>
-                <h2 className="text-green">Users</h2>
+                <div>
+                    <div className="card-green p-2 rounded">
+                        <p>Posts: {data.length}</p>
+                    </div>
+                </div>
                 <div className="">
+                    <h2 className="text-green">Users</h2>
                     <ListUsers data ={data}/>
                 </div>
 
