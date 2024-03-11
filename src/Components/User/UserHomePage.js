@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import NewComment from './NewComment';
-import '../User/UserHomePage.css';
 import NewPost from './NewPost';
+import '../User/UserHomePage.css';
 
 export default function UserHomePage () {
     const [posts, setPosts] = useState([]);
