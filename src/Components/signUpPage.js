@@ -26,7 +26,7 @@ export default function SignUpPage () {
                   }
                 })
                 .then((resp) => {
-                  navigate("Login")
+                  navigate("./Login")
                 })
                 .catch((error)=> {
                   console.log(error)

@@ -38,11 +38,11 @@ export default function UserHomePage () {
     function PostsKi (params) {
         return params.posts.map((post) => (
             <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
-                <h5 className='text-muted'>{post.userId}</h5>
-                <h5 className=''>{post.title}</h5>
-                <div className='card-body'>
-                    <a href={`/SinglePostDisplay/${post.id}`}><div className='small'>{post.description}</div></a>
-                </div>
+                <a className='card-body text-decoration-none' href={`/SinglePostDisplay/${post.id}`}>
+                    <h5 className='text-light'>{post.userId}</h5>
+                    <h5 className=''>{post.title}</h5>
+                    <div className='small'>{post.description}</div>
+                </a>
                 <div className='text-green align-middle'>
                     {post.like}
                     <button className='btn rounded'>
@@ -58,7 +58,7 @@ export default function UserHomePage () {
                 </div>
                 <div>
                     <CommentsKi post={post}/>
-                    <NewComment postId={post.id} userId={1}/>
+                    <NewComment postId={post.id}/>
                 </div>
             </div>    
         ))

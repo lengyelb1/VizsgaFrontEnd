@@ -1,5 +1,11 @@
+import { useEffect } from 'react'
 import './UserHomePage.css'
 export default function ProfilePage (){
+
+    useEffect(()=>{
+        
+    })
+
     return (
         <div className='vh-100 bg-dark text-green'>
             <div className='row'>
@@ -10,7 +16,7 @@ export default function ProfilePage (){
                       }}>Log Out</a>
                     </div>
                     <div className="nav-item">
-                      <a className="nav-link text-shadow-green">Profile</a>
+                      <p className="nav-link text-shadow-green">Profile</p>
                     </div>
                 </nav>
             </div>

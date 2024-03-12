@@ -64,7 +64,7 @@ export default function LoginPageV2 (props) {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Text >
-                    <p>Don't have a profile?  <a href='' className="text-muted fw-bold">Sign Up</a></p>
+                    <p>Don't have a profile?  <a href='/Register' className="text-muted fw-bold">Sign Up</a></p>
                   </Form.Text>
                 </Form.Group>
                 <Button variant="Dark" className='hover-overlay text-dark fw-bold hover-shadow float-end' type="submit" style={{background: '#A8F231'}}>

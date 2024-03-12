@@ -29,7 +29,7 @@ export default function AdminHomePage () {
                 <br/>
                 <div>
                     <div className="card-green p-2 rounded">
-                        <p>Posts: {data.length}</p>
+                        <p>Users: {data.length}</p>
                     </div>
                 </div>
                 <div className="">
