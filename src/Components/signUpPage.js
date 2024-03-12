@@ -2,7 +2,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Logo from './Back4.png';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 

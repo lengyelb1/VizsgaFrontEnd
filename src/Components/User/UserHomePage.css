@@ -6,9 +6,9 @@
     font-weight: bolder !important;
 }
 
-.btn-green :hover{
-    background-color: #a8f231 !important;
-    color: #191919 !important;
+.btn-green:hover{
+    border: #cdfe7d solid 2px !important;
+    background-color: #a8f23149 !important;
 }
 
 
@@ -42,10 +42,25 @@
     padding: 5px;
 }
 
+.input-green:hover {
+    border: #cdfe7d solid 2px !important;
+    color: #191919 !important;
+    background-color: #a8f23149 !important;
+}
+
 .input-green:active {
     border: #cdfe7d solid 2px !important;
 }
 
 .shadow-green{
     box-shadow: 0px 0px 2px 0px #A8F231;
+}
+
+.bg-green{
+    color: #191919;
+    background-color: #A8F231 !important;
+}
+
+.text-shadow-green{
+    text-shadow: 0px 0px 20px  #A8F231;
 }
