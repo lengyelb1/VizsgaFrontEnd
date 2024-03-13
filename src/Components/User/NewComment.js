@@ -22,7 +22,10 @@ const NewComment = (proms) => {
                     body: JSON.stringify({
                         "text": e.target.elements.comment.value,
                         "postId": proms.postId,
-                        "userId": proms.userId
+                        "userId": proms.userId,
+                        "id": 0,
+                        "commentId": 0
+
                     }),
                 })
                 .then((resp) => {
