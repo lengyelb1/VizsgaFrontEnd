@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import '../User/UserHomePage.css';
+import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -13,19 +14,18 @@ const NewComment = (proms) => {
                 </div>;
                 e.persist();
                 e.preventDefault();
+
                 fetch("http://localhost:7043/Comment", {
                     method: "POST",
                     headers:{
                         "Content-Type": "application/json",
                     },
-
                     body: JSON.stringify({
                         "text": e.target.elements.comment.value,
                         "postId": proms.postId,
-                        "userId": proms.userId,
+                        "userId": jwtDecode(localStorage.getItem("token")).id,
                         "id": 0,
                         "commentId": 0
-
                     }),
                 })
                 .then((resp) => {

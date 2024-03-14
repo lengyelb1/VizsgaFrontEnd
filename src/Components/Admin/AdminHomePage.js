@@ -89,7 +89,7 @@ export default function AdminHomePage () {
             }}>
               <div className="mb-3">
                 <label htmlFor="searchByNameUser1" className="form-label text-green">User Name: </label>
-                <input type="text" className="form-control" id="searchByNameUser1" aria-describedby="searchByNameUser1"/>
+                <input type="text" className="form-control input-green" id="searchByNameUser1" aria-describedby="searchByNameUser1"/>
               </div>
               <button type="submit" className="btn btn-green">Search</button>
             </form>
@@ -136,7 +136,7 @@ export default function AdminHomePage () {
             }}>
               <div className="mb-3">
                 <label htmlFor="searchByNamePost1" className="form-label text-green">Post Name: </label>
-                <input type="text" className="form-control" id="searchByNamePost1" aria-describedby="searchByNamePost1"/>
+                <input type="text" className="form-control input-green" id="searchByNamePost1" aria-describedby="searchByNamePost1"/>
               </div>
               <button type="submit" className="btn btn-green">Search</button>
             </form>
