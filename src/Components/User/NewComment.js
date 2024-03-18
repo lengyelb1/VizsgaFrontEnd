@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 
 
 const NewComment = (proms) => {    
+    const navigate = useNavigate();
     return (
         <div className=''>
             <form onSubmit={(e) => {
@@ -30,6 +31,7 @@ const NewComment = (proms) => {
                 })
                 .then((resp) => {
                     console.log(resp)
+                    navigate("/UserHomePage")
                 })
                 .catch(console.log);
             }}>

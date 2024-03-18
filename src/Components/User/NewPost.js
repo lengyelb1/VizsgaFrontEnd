@@ -18,9 +18,7 @@ export default function NewPost (proms){
                 var id = parseFloat(jwtDecode(localStorage.getItem("token")).id);
                 fetch("http://localhost:7043/UserPost", {
                     method: "POST",
-                    headers:{
-                        "Content-Type": "application/json",
-                    },
+                    headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`},
                     body: JSON.stringify({
                         "description": e.target.elements.PostText.value,
                         "title": e.target.elements.PostTitle.value,

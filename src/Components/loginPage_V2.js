@@ -17,6 +17,10 @@ export default function LoginPageV2 (props) {
           <div className="d-flex vw-100" style={{ borderRadius:'0px 50px 0px 0px', overflow:'hidden'}}>
               <Form className='bg-dark p-2 vw-100 ' onSubmit={(e)=>{
                 e.preventDefault();
+                e.target.elements.loginButton.disabled = true
+                e.target.elements.loginButton.innerHTML = `<div className="spinner-border " role="status">
+                    <span className="visually-hidden text-green">Loading...</span>
+                </div>`
                 axios({
                   method: 'post',
                   url: 'http://localhost:7043/Auth/login',
@@ -36,18 +40,14 @@ export default function LoginPageV2 (props) {
                     }else{
                       navigate("/UserHomePage");
                     }
-                    
-                    
-                    /*
-                    if (jwtDecode(resp.response.data).Permission == props.USER_TYPES.NORMAL_USER) {
-                      navigate("/UserHomePage");
-                    }else if (jwtDecode(resp.response.data).Permission == props.USER_TYPES.ADMIN_USER) {
-                      navigate("/AdminHomePage");
-                    }*/
                   }
                 })
                 .catch((error)=> {
                   console.log(error)
+                })
+                .finally(()=>{
+                  e.target.elements.loginButton.disabled = false
+                  e.target.elements.loginButton.innerHTML = `Submit`
                 })
               }}>
                 <Form.Label className='h1'>Login</Form.Label>
@@ -67,7 +67,7 @@ export default function LoginPageV2 (props) {
                     <p>Don't have a profile?  <a href='/Register' className="text-muted fw-bold">Sign Up</a></p>
                   </Form.Text>
                 </Form.Group>
-                <Button variant="Dark" className='hover-overlay text-dark fw-bold hover-shadow float-end' type="submit" style={{background: '#A8F231'}}>
+                <Button variant="Dark" id='loginButton' name='loginButton' className='hover-overlay text-dark fw-bold hover-shadow float-end' type="submit" style={{background: '#A8F231'}}>
                   Submit
                 </Button>
               </Form>
