@@ -14,11 +14,11 @@ export default function NewPost (proms){
             (e) => {
                 e.persist();
                 e.preventDefault();
-                var file = e.target.elements.imageFileChooser.value
+                //var file = e.target.elements.imageFileChooser.value
                 var id = parseFloat(jwtDecode(localStorage.getItem("token")).id);
                 fetch("http://localhost:7043/UserPost", {
                     method: "POST",
-                    headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`},
+                    headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},
                     body: JSON.stringify({
                         "description": e.target.elements.PostText.value,
                         "title": e.target.elements.PostTitle.value,
@@ -27,8 +27,6 @@ export default function NewPost (proms){
                 })
                 .then((resp) => {
                     console.log(resp)
-                    console.log("File:")
-                    console.log(file)
                 })
                 .catch(console.log);
             }

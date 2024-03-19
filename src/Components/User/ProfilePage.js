@@ -20,6 +20,9 @@ export default function ProfilePage (){
                     </div>
                 </nav>
             </div>
+            <div className=''>
+
+            </div>
         </div>
     )
 }

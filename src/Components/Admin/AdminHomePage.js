@@ -46,10 +46,9 @@ export default function AdminHomePage () {
             <div className="mt-5">
                 <br/>
                 <div className="row w-100">
-                    
                     <div className="card-green col-12 p-2 vh-50 rounded text-info mx-auto">
                         <p>Suspicius</p>
-                        <div className="overflow-auto" style={{height:"260px"}}>
+                        <div className="overflow-auto" style={{maxHeight:"260px"}}>
                             <SuspiciusUsersAllKi suspiciusUsers={suspiciusUsers} />
                         </div>
                     </div>
@@ -183,10 +182,13 @@ export default function AdminHomePage () {
     function PostsKi (params) {
         return params.posts.map((post) => (
             <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
-                <div className='card-body text-decoration-none'>
-                    <h5 className='text-light'>{post.userId}</h5>
-                    <h5 className=''>{post.title}</h5>
-                    <div className='small'>{post.description}</div>
+                <div className='card-body '>
+                    <a href={`/AdminSinglePost/${post.id}`} className="text-light text-decoration-none">
+                        <h5 className='text-light'>{post.userId}</h5>
+                        {console.log(post)}
+                        <h5 className=''>{post.title}</h5>
+                        <div className='small'>{post.description}</div>
+                    </a>
                 </div>
                 <div className='text-green align-middle'>
                     Likes: {post.like}
@@ -205,14 +207,14 @@ export default function AdminHomePage () {
                     {params.suspiciusUsers.map((x)=>{
                         return(
                             <div key={x.id} className="card-green p-2 mb-1">
-                                {console.log(x)}
                                 <p>Username: {x.user.username}</p>
                                 <p>Email: {x.user.email}</p>
                                 <p>Point: {x.user.point}</p>
                                 <p>Last login: {x.user.lastLogin}</p>
                                 <p>Registration date: {x.user.registrationDate}</p>
                                 <a className="btn btn-danger ms-2" onClick={async() => {
-                                    fetch(`http://localhost:7043/AdminUsers/SuspiciousId?id=${x.user.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                                    fetch(`http://localhost:7043/AdminUsers/SuspiciousId?id=${x.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                                    .catch((x)=>console.log(x))
                                 }}>Remove</a>
                             </div>
                         )
