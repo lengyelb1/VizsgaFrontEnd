@@ -75,8 +75,10 @@ export default function AdminHomePage () {
                 <div key={user.id + 1} className='card col-12 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                     <div className='card-body'>
                         <p className='text-green'>{user.username}</p>
-                        <div className='small text-light'>Points: {user.point}</div>
-                        <div className='small'>Email: {user.email}</div>
+                        <p>Email: {user.email}</p>
+                        <p>Point: {user.point}</p>
+                        <p>Last login: {user.lastLogin}</p>
+                        <p>Registration date: {user.registrationDate}</p>
                         <a href= {"AdminPutSingleUser/"+user.id} className="btn btn-warning">Change</a>
                         <a href={"AdminDeleteUser/"+user.id} className="btn btn-danger ms-2">Delete</a>
                         <a className="btn btn-info ms-2" onClick={async() => {
