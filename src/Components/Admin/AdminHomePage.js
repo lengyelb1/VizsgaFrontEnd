@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import './AdminHomePage.css';
+import { NavLink } from "react-bootstrap";
 
 
 export default function AdminHomePage () {
 
     const [userDb,setUserDb] = useState();
     const [postDb,setPostDb] = useState();
+    const [suspiciusUsers,setSuspiciusUsers] = useState();
     
     const [userByName,setUserByName] = useState();
     const [postByName,setPostByName] = useState();
@@ -22,6 +24,12 @@ export default function AdminHomePage () {
         .then((resp)=> {
             setPostDb(resp)
         })
+
+        fetch("http://localhost:7043/AdminUsers/GetAllSuspicious",{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        .then((response) => response.json())
+        .then((resp)=> {
+            setSuspiciusUsers(resp)
+        })
         
     },[])
     
@@ -37,17 +45,22 @@ export default function AdminHomePage () {
             </nav>
             <div className="mt-5">
                 <br/>
-                <div>
-                    <div className="card-green p-2 rounded">
-                        <p>Users: {userDb}</p>
-                        <p>Posts: {postDb}</p>
+                <div className="row w-100">
+                    
+                    <div className="card-green col-12 p-2 vh-50 rounded text-info mx-auto">
+                        <p>Suspicius</p>
+                        <div className="overflow-auto" style={{height:"260px"}}>
+                            <SuspiciusUsersAllKi suspiciusUsers={suspiciusUsers} />
+                        </div>
                     </div>
                 </div>
-                <div className="row mt-3 min-vh-100 w-100">
-                    <div className="col-6">
+                <div className="row mt-3 min-vh-100 w-100 vh-50">
+                    <div className="col-6 overflow-auto">
+                        <p className="text-green">Users: {userDb}</p>
                         <ListUsersByName userByName = {userByName}/>
                     </div>
-                    <div className="col-6">
+                    <div className="col-6 overflow-auto h-100">
+                        <p className="text-green">Posts: {postDb}</p>
                         <ListPostsByName postByName = {postByName}/>
                     </div>
                 </div>
@@ -57,8 +70,8 @@ export default function AdminHomePage () {
 
     function UserKi (prop) {
         return (
-        <div>
-            {prop.resp.map((user) => (
+        
+            prop.resp.map((user) => (
                 <div key={user.id + 1} className='card col-12 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                     <div className='card-body'>
                         <p className='text-green'>{user.username}</p>
@@ -66,10 +79,12 @@ export default function AdminHomePage () {
                         <div className='small'>Email: {user.email}</div>
                         <a href= {"AdminPutSingleUser/"+user.id} className="btn btn-warning">Change</a>
                         <a href={"AdminDeleteUser/"+user.id} className="btn btn-danger ms-2">Delete</a>
+                        <a className="btn btn-info ms-2" onClick={async() => {
+                            fetch(`http://localhost:7043/AdminUsers/suspicious?id=${user.id}`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                        }}>Suspicius</a>
                     </div>    
                 </div>
-            ))}
-        </div>
+            ))
         )
     }
 
@@ -127,9 +142,7 @@ export default function AdminHomePage () {
                     fetch(`http://localhost:7043/AdminUsers/postnev?nev=${e.target.elements.searchByNamePost1.value}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                     .then((response) => response.json())
                     .then((resp)=> {
-
                         setPostByName(resp)
-
                     })
                 }
 
@@ -178,5 +191,40 @@ export default function AdminHomePage () {
                 </div>
             </div>    
         ))
+    }
+
+    function SuspiciusUsersAllKi(params){
+
+        if (params.suspiciusUsers == undefined) {
+            return <h4>There are no suspicius users.</h4>
+        }else{
+            return (
+                <div>
+                    {params.suspiciusUsers.map((x)=>{
+                        return(
+                            <div key={x.id} className="card-green p-2 mb-1">
+                                {console.log(x)}
+                                <p>Username: {x.user.username}</p>
+                                <p>Email: {x.user.email}</p>
+                                <p>Point: {x.user.point}</p>
+                                <p>Last login: {x.user.lastLogin}</p>
+                                <p>Registration date: {x.user.registrationDate}</p>
+                                <a className="btn btn-danger ms-2" onClick={async() => {
+                                    fetch(`http://localhost:7043/AdminUsers/SuspiciousId?id=${x.user.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                                }}>Remove</a>
+                            </div>
+                        )
+                    })}
+                </div>
+            )
+        }
+
+        /*
+            suspiciusUsers.map((x)=>{
+                    <div>
+                        {console.log(x)}
+                    </div>
+                })
+        */
     }
 }
