@@ -39,12 +39,10 @@ export default function UserHomePage () {
                 </div>
             )
         }else if (params.posts.length <1) {
-            console.log("No posts...")
             return (
                 <h4 className='text-green text-center mt-5'>There are no posts...</h4>
             )
         }else{
-            console.log("there are posts")
             return params.posts.map((post) => (
                 <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                     <a className='card-body text-decoration-none' href={`/SinglePostDisplay/${post.id}`}>
@@ -74,20 +72,28 @@ export default function UserHomePage () {
         }
     }
     return (
-    <div className='bg-dark h-100 p-2'>
-        <nav className="navbar navbar-dark p-2 bg-dark text-green w-100 border-bottom-green fixed-top shadow">
+    <div className='bg-dark p-2'>
+        <nav className="navbar navbar-dark p-2 bg-dark text-green border-bottom-green fixed-top shadow">
             <div className="nav-item">
               <a className="nav-link" href="/" onClick={()=>{
                   localStorage.setItem("token",undefined)
               }}>Log Out</a>
             </div>
+            <div className='nav-item'>
+                <form className="d-flex">
+                  <input className="form-control me-2" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={(e)=>{
+                    fetch(`http://localhost:7043/AdminUsers/KeresoWithNevOrCim?keresettErtek=${e.target.elements.searchBar.value}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                  }}/>
+                  <button className="btn btn-green" type="submit">Search</button>
+                </form>
+            </div>
             <div className="nav-item">
               <a className="nav-link" href="/ProfilePage">Profile</a>
             </div>
         </nav>
-        <div className="mt-5 min-vh-100">
+        <div className="mt-5 min-vh-100 ">
             <NewPost/>
-            <PostsKi posts={posts} />
+            <PostsKi posts={posts}/>
         </div>
     </div>)
 }
