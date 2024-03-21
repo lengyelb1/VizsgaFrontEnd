@@ -5,18 +5,72 @@ import '../User/UserHomePage.css';
 
 export default function UserHomePage () {
     const [posts, setPosts] = useState([]);
+    const [Allposts, setAllPosts] = useState([]);
+    const [users, setUsers] = useState([]);
     const [isFetchPending, setFetchPending] = useState(false);
+    const [feed,setFeed] = useState(<div><NewPost/><PostsKi posts={Allposts}/></div>);
 
     useEffect(() => {
         setFetchPending(true);
         fetch("http://localhost:7043/UserPost", {})
         .then((res) => res.json())
-        .then((post) => setPosts(post))
+        .then((post) => {setAllPosts(post); setFeed(<div><NewPost/><PostsKi posts={Allposts}/></div>)})
         .catch(console.log)
         .finally(() => {
             setFetchPending(false);
         });
     }, []);
+
+    return (
+    <div className='bg-dark p-2'>
+        <nav className="navbar navbar-dark p-2 bg-dark text-green border-bottom-green fixed-top shadow">
+            <div className="nav-item">
+              <a className="nav-link" href="/" onClick={()=>{
+                  localStorage.setItem("token",undefined)
+              }}>Log Out</a>
+            </div>
+            <div className='nav-item'>
+                <form className="d-flex">
+                  <input className="form-control me-2" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={(e)=>{
+                    if (e.target.value !== "" && e.target.value.trim() !== "@") {
+                        fetch(`http://localhost:7043/User/KeresoWithNevOrCim?keresettErtek=${e.target.value}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                        .then((response) => response.json())
+                        .then((resp)=> {
+                            setUsers(resp)
+                            if (resp.length > 0) {
+                                if (resp[0].username == undefined || resp[0].username == "") {
+                                    setPosts(resp)
+                                     setFeed(<PostsKi posts={posts}/>);
+                                }else{
+                                    setUsers(resp)
+                                    setFeed(<UsersKi users={users}/>);
+                                }
+                            }
+                            
+                        })
+                    }
+                    else{
+                        setFeed(<div><NewPost/><PostsKi posts={Allposts}/></div>);
+                    }
+                  }}/>
+                  <button className="btn btn-green" type="submit">Search</button>
+                </form>
+            </div>
+            <div className="nav-item">
+              <a className="nav-link" href="/ProfilePage">Profile</a>
+            </div>
+        </nav>
+        <div className="mt-5 min-vh-100 ">
+            <div id='feed' name='feed'>
+                {feed}
+            </div>
+            
+        </div>
+    </div>)
+
+    function UsersKi (params) {
+
+    }
 
     function CommentsKi (params) {
         return params.post.comments.map((comment) => (
@@ -71,29 +125,5 @@ export default function UserHomePage () {
             ))
         }
     }
-    return (
-    <div className='bg-dark p-2'>
-        <nav className="navbar navbar-dark p-2 bg-dark text-green border-bottom-green fixed-top shadow">
-            <div className="nav-item">
-              <a className="nav-link" href="/" onClick={()=>{
-                  localStorage.setItem("token",undefined)
-              }}>Log Out</a>
-            </div>
-            <div className='nav-item'>
-                <form className="d-flex">
-                  <input className="form-control me-2" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={(e)=>{
-                    fetch(`http://localhost:7043/AdminUsers/KeresoWithNevOrCim?keresettErtek=${e.target.elements.searchBar.value}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
-                  }}/>
-                  <button className="btn btn-green" type="submit">Search</button>
-                </form>
-            </div>
-            <div className="nav-item">
-              <a className="nav-link" href="/ProfilePage">Profile</a>
-            </div>
-        </nav>
-        <div className="mt-5 min-vh-100 ">
-            <NewPost/>
-            <PostsKi posts={posts}/>
-        </div>
-    </div>)
+
 }
