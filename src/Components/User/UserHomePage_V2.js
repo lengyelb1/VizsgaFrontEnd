@@ -126,7 +126,7 @@ export default function UserHomePageV2(){
                 return params.posts.map((post) => (
                     <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                         <a className='card-body text-decoration-none' href={`/SinglePostDisplay/${post.id}`}>
-                            <h5 className='text-light'>{post.userId}</h5>
+                            <h5 className='text-light'>{post.user.username}</h5>
                             <h5 className=''>{post.title}</h5>
                             <div className='small'>{post.description}</div>
                         </a>
