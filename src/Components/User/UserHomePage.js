@@ -14,7 +14,8 @@ export default function UserHomePage () {
         setFetchPending(true);
         fetch("http://localhost:7043/UserPost", {})
         .then((res) => res.json())
-        .then((post) => {setAllPosts(post); setFeed(<div><NewPost/><PostsKi posts={Allposts}/></div>)})
+        .then((post) => setAllPosts(post))
+        .then(() => setFeed(<div><NewPost/><PostsKi posts={Allposts}/></div>))
         .catch(console.log)
         .finally(() => {
             setFetchPending(false);
@@ -31,22 +32,29 @@ export default function UserHomePage () {
             </div>
             <div className='nav-item'>
                 <form className="d-flex">
-                  <input className="form-control me-2" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={(e)=>{
+                  <input className="form-control me-2" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={async (e)=>{
                     if (e.target.value !== "" && e.target.value.trim() !== "@") {
-                        fetch(`http://localhost:7043/User/KeresoWithNevOrCim?keresettErtek=${e.target.value}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                        setFetchPending(true);
+                        await fetch(`http://localhost:7043/User/KeresoWithNevOrCim?keresettErtek=${e.target.value}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                         .then((response) => response.json())
                         .then((resp)=> {
                             setUsers(resp)
                             if (resp.length > 0) {
                                 if (resp[0].username == undefined || resp[0].username == "") {
                                     setPosts(resp)
-                                     setFeed(<PostsKi posts={posts}/>);
+                                    setFeed(<PostsKi posts={posts}/>);
                                 }else{
                                     setUsers(resp)
                                     setFeed(<UsersKi users={users}/>);
                                 }
+                            }else{
+                                return (
+                                    <h4 className='text-green text-center mt-5'>There are no posts...</h4>
+                                )
                             }
-                            
+                        })
+                        .finally(() => {
+                            setFetchPending(false);
                         })
                     }
                     else{
@@ -69,18 +77,15 @@ export default function UserHomePage () {
     </div>)
 
     function UsersKi (params) {
-
-    }
-
-    function CommentsKi (params) {
-        return params.post.comments.map((comment) => (
-            <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                <p className='card-title'>{comment.userId}</p>
+        return params.users.map((user) => (
+            <div key={user.id} id={`user-${user.id}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
+                <p className='card-title'>{user.username}</p>
                 <div className='card-body p-1 mx-auto'>
-                    <p className=''>{comment.text}</p>
+                    <p className=''>Points: {user.point}</p>
                 </div>
-            </div>    
-        ))    
+                {console.log(user)}
+            </div>
+        ))
     }
 
     function PostsKi (params) {
@@ -91,10 +96,6 @@ export default function UserHomePage () {
                         <span className="visually-hidden text-green">Loading...</span>
                     </div>
                 </div>
-            )
-        }else if (params.posts.length <1) {
-            return (
-                <h4 className='text-green text-center mt-5'>There are no posts...</h4>
             )
         }else{
             return params.posts.map((post) => (
@@ -126,4 +127,14 @@ export default function UserHomePage () {
         }
     }
 
+    function CommentsKi (params) {
+        return params.post.comments.map((comment) => (
+            <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
+                <p className='card-title'>{comment.userId}</p>
+                <div className='card-body p-1 mx-auto'>
+                    <p className=''>{comment.text}</p>
+                </div>
+            </div>    
+        ))    
+    }
 }

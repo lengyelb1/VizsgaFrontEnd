@@ -14,6 +14,7 @@ import AdminDeleteUser from './Components/Admin/AdminDeleteUser';
 import ProfilePage from './Components/User/ProfilePage';
 import SinglePostDisplay from './Components/User/SinglePostDisplay';
 import AdminSinglePost from './Components/Admin/AdminSinglePost';
+import UserHomePageV2 from './Components/User/UserHomePage_V2';
 
 function App() {
   //const navigate = useNavigate();
@@ -43,7 +44,7 @@ function App() {
         <Route path="/" element={<PublicElement> <HomePage/> </PublicElement>}></Route>
         <Route path="/Register" element={<PublicElement> <SignUpPage/> </PublicElement>}></Route>
         <Route path="/Login" element={<PublicElement> <LoginPageV2 USER_TYPES = {USER_TYPES}/> </PublicElement>}></Route>
-        <Route path="/UserHomePage" element={<UserElement> <UserHomePage/> </UserElement>}></Route>
+        <Route path="/UserHomePage" element={<UserElement> <UserHomePageV2/> </UserElement>}></Route>
         <Route path="/SinglePostDisplay/:id" element={<UserElement> <SinglePostDisplay/> </UserElement>}></Route>
         <Route path="/ProfilePage" element={<UserElement> <ProfilePage/> </UserElement>}></Route>
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
