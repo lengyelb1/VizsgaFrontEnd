@@ -31,7 +31,7 @@ const NewComment = (proms) => {
                     })
                     .then((resp) => {
                         console.log(resp)
-                        navigate("/UserHomePage")
+                        alert("Comment created!")
                     })
                     .catch(console.log);
                 }

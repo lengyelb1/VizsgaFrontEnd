@@ -27,6 +27,7 @@ export default function NewPost (proms){
                 })
                 .then((resp) => {
                     console.log(resp)
+                    alert("Post created!")
                 })
                 .catch(console.log);
             }
