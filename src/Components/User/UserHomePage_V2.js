@@ -17,12 +17,7 @@ export default function UserHomePageV2(){
         fetch(`http://localhost:7043/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
         .then((res) => res.json())
         .then((data) => {
-            if (data[0].user.username != undefined) {
-                setFeed(<div><NewPost/><PostsKi posts={data}/></div>);
-            }
-            else{
-                //All user ki
-            }   
+            setFeed(<div><NewPost/><PostsKi posts={data}/></div>);
         })
         .catch(console.log)
         .finally(() => {
@@ -47,15 +42,20 @@ export default function UserHomePageV2(){
                         fetch(`http://localhost:7043/User/SearchWithNameOrTitle?keresettErtek=${e.target.value}&userId=${jwtDecode(localStorage.getItem("token")).id}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
                         .then((response) => response.json())
                         .then((data) => {
-                            if (data[0].username == undefined) {
+                            if (data.length > 0) {
+                                if (data[0].username == undefined) {
+                                    setFeed(<div><PostsKi posts={data}/></div>);
+                                    //setFeed(<div><h1 className='text-white'>Posts</h1></div>);
+                                    
+                                }
+                                else{
+                                    setFeed(<div><UsersKi users = {data}/></div>)
+                                    //setFeed(<div><h1 className='text-white'>Users</h1></div>)
+                                }    
+                            }else{
                                 setFeed(<div><PostsKi posts={data}/></div>);
-                                //setFeed(<div><h1 className='text-white'>Posts</h1></div>);
-                                
                             }
-                            else{
-                                setFeed(<div><UsersKi users = {data}/></div>)
-                                //setFeed(<div><h1 className='text-white'>Users</h1></div>)
-                            }
+                            
                         })
                         .catch(console.log)
                         .finally(() => {
