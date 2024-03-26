@@ -24,7 +24,8 @@ export default function SinglePostDisplay(){
                 <div>
                     {params.post.comments.map((comment) => (
                     <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                        <p className='card-title'>{comment.userId}</p>
+                        <p className='card-title'>{comment.user.username}</p>
+                        {console.log(comment)}
                         <div className='card-body p-1 mx-auto'>
                             <p className=''>{comment.text}</p>
                         </div>
