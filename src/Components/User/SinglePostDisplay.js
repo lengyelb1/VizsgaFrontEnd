@@ -9,13 +9,13 @@ export default function SinglePostDisplay(){
     const [data,setData] = useState();
 
     useEffect(()=>{
-        fetch(`http://localhost:7043/UserPost/id?id=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`http://localhost:7043/UserPost/UserPostByIdWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}&postId=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((r)=>
             r.json()
         )
-        .then((resp)=>
+        .then((resp)=>{
             setData(resp)
-        )
+        })
     },[]);
 
     function CommentsKi (params) {
@@ -50,13 +50,16 @@ export default function SinglePostDisplay(){
                           }}>Log Out</a>
                         </div>
                         <div className="nav-item">
+                          <a className="nav-link" href="/UserHomePage">HomePage</a>
+                        </div>
+                        <div className="nav-item">
                           <a className="nav-link" href="/ProfilePage">Profile</a>
                         </div>
                     </nav>
                     <br/>
                     <div key={data.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-4 border border-dark shadow-green'>
                         <div className='card-body'>
-                            <h5 className='text-light'>{data.userId}</h5>
+                            <h5 className='text-light'>{data.user.username}</h5>
                             <h5 className=''>{data.title}</h5>
                             <div className='small'>{data.description}</div>
                         </div>
@@ -93,13 +96,16 @@ export default function SinglePostDisplay(){
                           }}>Log Out</a>
                         </div>
                         <div className="nav-item">
+                          <a className="nav-link" href="/UserHomePage">HomePage</a>
+                        </div>
+                        <div className="nav-item">
                           <a className="nav-link" href="/ProfilePage">Profile</a>
                         </div>
                     </nav>
                     <br/>
                     <div key={data.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-4 border border-dark shadow-green'>
                         <div className='card-body'>
-                            <h5 className='text-light'>{data.userId}</h5>
+                            <h5 className='text-light'>{data.user.username}</h5>
                             <h5 className=''>{data.title}</h5>
                             <div className='small'>{data.description}</div>
                         </div>
