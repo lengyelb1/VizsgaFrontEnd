@@ -5,7 +5,7 @@ export default function AdminSinglePost(){
     const [data,setData] = useState();
 
     useEffect(()=>{
-        fetch(`http://localhost:7043/UserPost/id?id=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`http://localhost:7043/AdminUserPost/UserGetPosts?id=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((r)=>
             r.json()
         )

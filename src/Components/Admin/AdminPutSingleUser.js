@@ -20,7 +20,7 @@ export default function AdminPutSingleUser(prop){
                 <div className="">
                     <form className="text-green" onSubmit={(e)=>{
                         e.preventDefault()
-                        fetch(`http://localhost:7043/AdminUsers/id?id=${prop.id}`,{method:"PUT",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`},body:{
+                        fetch(`http://localhost:7043/AdminUsers/ChangeRegister?id=${prop.id}`,{method:"PUT",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`},body:{
                             userName: document.getElementById("username").value,
                             email: document.getElementById("email").value,
                             permissionId: document.getElementById("permissionId").value
