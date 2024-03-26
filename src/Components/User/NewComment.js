@@ -18,7 +18,7 @@ const NewComment = (proms) => {
                 if (e.target.elements.comment.value == "") {
                     alert("Adjon meg valamit a commentben!")
                 }else{
-                    fetch("http://localhost:7043/Comment", {
+                    fetch("http://localhost:7043/Comment/AddComment", {
                         method: "POST",
                         headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},
                         body: JSON.stringify({
