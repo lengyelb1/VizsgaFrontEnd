@@ -15,6 +15,7 @@ export default function NewPost (proms){
                 e.persist();
                 e.preventDefault();
                 //var file = e.target.elements.imageFileChooser.value
+                
                 var id = parseFloat(jwtDecode(localStorage.getItem("token")).id);
                 fetch("http://localhost:7043/UserPost/AddUserPost", {
                     method: "POST",
@@ -29,7 +30,10 @@ export default function NewPost (proms){
                     console.log(resp)
                     alert("Post created!")
                 })
-                .catch(console.log);
+                .catch(console.log)
+                .finally(()=>{
+                    proms.refreshDatas(proms.refrDatas+1)
+                })
             }
         }>
           <div className="mb-3">

@@ -33,7 +33,10 @@ const NewComment = (proms) => {
                         console.log(resp)
                         alert("Comment created!")
                     })
-                    .catch(console.log);
+                    .catch(console.log)
+                    .finally(()=>{
+                        proms.refreshDatas(proms.refrDatas+1)
+                    })
                 }
                 
             }}>

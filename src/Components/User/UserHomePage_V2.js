@@ -11,19 +11,20 @@ export default function UserHomePageV2(){
     const [users, setUsers] = useState([]);
     const [isFetchPending, setFetchPending] = useState(false);
     const [feed,setFeed] = useState();
-
+    const [refrDatas,refreshDatas] = useState(0)
+    console.log(refrDatas)
     useEffect(() => {
         setFetchPending(true);
         fetch(`http://localhost:7043/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
         .then((res) => res.json())
         .then((data) => {
-            setFeed(<div><NewPost/><PostsKi posts={data}/></div>);
+            setFeed(<div><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><PostsKi posts={data}/></div>);
         })
         .catch(console.log)
         .finally(() => {
             setFetchPending(false);
         });
-    }, []);
+    }, [refrDatas]);
 
     //File Visszatérése
     return(
@@ -66,7 +67,7 @@ export default function UserHomePageV2(){
                         fetch(`http://localhost:7043/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                         .then((res) => res.json())
                         .then((data) => {
-                            setFeed(<div><NewPost/><PostsKi posts={data}/></div>);
+                            setFeed(<div><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><PostsKi posts={data}/></div>);
                         })
                         .catch(console.log)
                         .finally(() => {
@@ -83,7 +84,6 @@ export default function UserHomePageV2(){
         </nav>
         <div className="min-vh-100 mx-auto mt-5 ">
             <FeedKi/>
-            
         </div>
     </div>)
 
@@ -123,7 +123,7 @@ export default function UserHomePageV2(){
             }
         }
     }
-
+    /* Comment card Render */
     function CommentsKi (params) {
         return params.post.comments.map((comment) => (
             <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 text-light'>
@@ -134,7 +134,7 @@ export default function UserHomePageV2(){
             </div>    
         ))    
     }
-
+    /* User card Render */
     function UsersKi (params) {
         return params.users.map((user) => (
             <div key={user.id} id={`user-${user.id}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
@@ -151,6 +151,7 @@ export default function UserHomePageV2(){
     function Post_ (params) {
         const post = params.post
         if (post.liked) {
+            /*Post card render */
             return (
                 <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                     <a className='card-body text-decoration-none' href={`/SinglePostDisplay/${post.id}`}>
@@ -163,11 +164,16 @@ export default function UserHomePageV2(){
                         
                         <button className='btn rounded' onClick={
                             async () => {
+                                setFetchPending(true)
                                 fetch(`http://localhost:7043/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
                                     "postId": post.id,
                                     "userId": jwtDecode(localStorage.getItem("token")).id,
                                     "isLiked": false
                                   })
+                                })
+                                .finally( () => {
+                                    setFetchPending(false)
+                                    refreshDatas(refrDatas+1)
                                 })
                             }
                         }>
@@ -177,8 +183,9 @@ export default function UserHomePageV2(){
                         </button>
                     </div>
                     <div>
+                        
                         <CommentsKi post={post}/>
-                        <NewComment postId={post.id}/>
+                        <NewComment refreshDatas = {refreshDatas} refrDatas ={refrDatas} postId={post.id}/>
                     </div>
                 </div>
             )
@@ -195,11 +202,16 @@ export default function UserHomePageV2(){
 
                         <button className='btn rounded' onClick={
                             async () => {
+                                setFetchPending(true)
                                 fetch(`http://localhost:7043/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
                                     "postId": post.id,
                                     "userId": jwtDecode(localStorage.getItem("token")).id,
                                     "isLiked": true
                                   })
+                                })
+                                .finally(()=> {
+                                    setFetchPending(false)
+                                    refreshDatas(refrDatas+1)
                                 })
                             }
                         }>
@@ -210,7 +222,7 @@ export default function UserHomePageV2(){
                     </div>
                     <div>
                         <CommentsKi post={post}/>
-                        <NewComment postId={post.id}/>
+                        <NewComment refreshDatas = {refreshDatas} refrDatas ={refrDatas} postId={post.id}/>
                     </div>
                 </div>
             )
