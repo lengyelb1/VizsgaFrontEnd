@@ -44,6 +44,7 @@ export default function LoginPageV2 (props) {
                 })
                 .catch((error)=> {
                   console.log(error)
+                  
                 })
                 .finally(()=>{
                   e.target.elements.loginButton.disabled = false
