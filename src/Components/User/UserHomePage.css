@@ -97,3 +97,35 @@
   .file-input:active::before {
     background: -webkit-linear-gradient(top, #cdfe7d, #cdfe7d00);
   }
+
+
+  #searchBar{
+
+  }
+  #searchBar::placeholder {
+    color: #ffffff;
+    opacity: 1; /* Firefox */
+  }
+  
+  #searchBar::-ms-input-placeholder { /* Edge 12 -18 */
+    color: #a8f231c7;
+  }
+
+  #btn-profile{
+
+  }
+
+  .btn-profile-menu{
+    background-color: #212529 !important;
+    color: #A8F231 !important; 
+    border: #A8F231 solid 2px !important;
+  }
+  
+  .btn-profile-content{
+    color: #A8F231 !important;
+  }
+
+  .btn-profile-content:hover{
+    background-color: #a8f2314d !important;
+    color: #ffffff !important; 
+  }

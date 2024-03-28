@@ -3,6 +3,7 @@ import NewComment from './NewComment';
 import NewPost from './NewPost';
 import '../User/UserHomePage.css';
 import { jwtDecode } from 'jwt-decode';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function UserHomePageV2(){
 
@@ -30,11 +31,6 @@ export default function UserHomePageV2(){
     return(
     <div className='bg-dark p-2'>
         <nav className="navbar navbar-dark p-2 bg-dark text-green border-bottom-green fixed-top shadow">
-            <div className="nav-item">
-              <a className="nav-link" href="/" onClick={()=>{
-                  localStorage.setItem("token",undefined)
-              }}>Log Out</a>
-            </div>
             <div className='nav-item'>
                 <form className="d-flex">
                 <input className="form-control me-2 input-green" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={async (e)=>{
@@ -79,7 +75,16 @@ export default function UserHomePageV2(){
                 </form>
             </div>
             <div className="nav-item">
-              <a className="nav-link" href="/ProfilePage">Profile</a>
+                <Dropdown id='btn-profile'>
+                  <Dropdown.Toggle variant="" className='btn-green' id="dropdown-basic">
+                    Profile
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className='btn-profile-menu'>
+                    <Dropdown.Item className='btn-profile-content' href="/ProfilePage">Details</Dropdown.Item>
+                    <Dropdown.Item className='btn-profile-content' href="/" onClick={async ()=>{ await localStorage.setItem("token",undefined) }}>Log Out</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
             </div>
         </nav>
         <div className="min-vh-100 mx-auto mt-5 ">
