@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import Toast from 'react-bootstrap/Toast';
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import {url} from '../connect2getherUrl.mjs'
 
 
 export default function LoginPageV2 (props) {
@@ -17,7 +18,6 @@ export default function LoginPageV2 (props) {
     const [inputEmpty, setInputEmpty] = useState(true);
         
     const toggleShowA = () => setShowA(!showA);
-
     return (
     <div className="bg-dark text-light vh-100 vw-100 mx-auto" data-bs-theme="dark">
         <div className='d-flex h-25' style={{ background: 'linear-gradient(to bottom, #00ADB5,#A8F231)',borderRadius:'0px 0px 0px 50px', overflow:'hidden'}}>
@@ -35,26 +35,23 @@ export default function LoginPageV2 (props) {
                   e.target.elements.loginButton.innerHTML = `<div className="spinner-border " role="status">
                       <span className="visually-hidden text-green">Loading...</span>
                   </div>`
-                  axios({
-                    method: 'post',
-                    url: 'http://localhost:7043/Auth/login',
-                    data: {
-                      userName: document.getElementById('username').value,
-                      password: document.getElementById('password').value
-                    }
-                  })
-                  .then((resp) => {
-                    if (resp.name =="AxiosError") {
-                      return (alert(resp.response.data))
-                    }else{
-                      localStorage.setItem("token",resp.data);
+                  fetch(`${url}/Auth/Login`,{method:"POST",headers:{"Content-Type": "application/json"}, body: JSON.stringify({
+                    userName: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                  })})
+                  .then((resp) => resp.text())
+                  .then((data) => {
+                    
+                    localStorage.setItem("token",data);
   
-                      if (jwtDecode(localStorage.getItem("token")).role == props.USER_TYPES.ADMIN_USER) {
-                        navigate("/AdminHomePage");                      
-                      }else{
-                        navigate("/UserHomePage");
-                      }
+                    if (jwtDecode(localStorage.getItem("token")).role == props.USER_TYPES.ADMIN_USER) {
+                      navigate("/AdminHomePage");                      
+                    }else{
+                      navigate("/UserHomePage");
                     }
+                    
+                      
+                    
                   })
                   .catch((error)=> {
                     console.log(error)
@@ -109,7 +106,7 @@ export default function LoginPageV2 (props) {
             />
             <strong className="me-auto">{params.header}</strong>
           </Toast.Header>
-          <Toast.Body>{params.error.response.data}</Toast.Body>
+          <Toast.Body>Something went wrong!</Toast.Body>
         </Toast>
         );
       }else if (inputEmpty){

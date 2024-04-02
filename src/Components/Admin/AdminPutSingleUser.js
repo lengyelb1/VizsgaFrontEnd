@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { url } from "../../connect2getherUrl.mjs";
 
 export default function AdminPutSingleUser(prop){
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function AdminPutSingleUser(prop){
                 <div className="">
                     <form className="text-green" onSubmit={(e)=>{
                         e.preventDefault()
-                        fetch(`http://localhost:7043/AdminUsers/ChangeRegister?id=${prop.id}`,{method:"PUT",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`},body:{
+                        fetch(`${url}/AdminUsers/ChangeRegister?id=${prop.id}`,{method:"PUT",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`},body:{
                             userName: document.getElementById("username").value,
                             email: document.getElementById("email").value,
                             permissionId: document.getElementById("permissionId").value

@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { url } from "../../connect2getherUrl.mjs";
 
 export default function AdminDeleteUser (prop) {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function AdminDeleteUser (prop) {
                     <a className="btn btn-warning" href="../AdminHomePage">Back</a>
                     <a className="btn btn-danger float-end" href="" onClick={(e)=>{
                         e.preventDefault()
-                         fetch(`http://localhost:7043/AdminUsers/DeleteUserById?id=${params.id}`,{method:"DELETE", headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                         fetch(`${url}/AdminUsers/DeleteUserById?id=${params.id}`,{method:"DELETE", headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                         .then(()=>{
                             navigate("../AdminHomePage")
                         })

@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Logo from './Back4.png';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import {url} from '../connect2getherUrl.mjs'
+
 
 
 export default function SignUpPage () {
@@ -18,7 +20,7 @@ export default function SignUpPage () {
                 e.preventDefault();
                 axios({
                   method: 'post',
-                  url: 'http://localhost:7043/Auth/Register',
+                  url: `${url}/Auth/Register`,
                   data: {
                     userName: document.getElementById('username').value,
                     password: document.getElementById('password').value,

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
+import { url } from "../../connect2getherUrl.mjs";
 export default function AdminSinglePost(){
     const prop = useParams();
     const [data,setData] = useState();
 
     useEffect(()=>{
-        fetch(`http://localhost:7043/AdminUserPost/UserGetPosts?id=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/AdminUserPost/UserGetPosts?id=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((r)=>
             r.json()
         )

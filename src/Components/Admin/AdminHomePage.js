@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import './AdminHomePage.css';
 import { NavLink } from "react-bootstrap";
+import { url } from "../../connect2getherUrl.mjs";
 
 
 export default function AdminHomePage () {
@@ -13,19 +14,19 @@ export default function AdminHomePage () {
     const [postByName,setPostByName] = useState();
 
     useEffect(()=>{
-        fetch("http://localhost:7043/AdminUsers/UserDb",{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/AdminUsers/UserDb`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((response) => response.json())
         .then((resp)=> {
             setUserDb(resp)
         })
 
-        fetch("http://localhost:7043/AdminUserPost/UserPostDb",{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/AdminUserPost/UserPostDb`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((response) => response.json())
         .then((resp)=> {
             setPostDb(resp)
         })
 
-        fetch("http://localhost:7043/AdminSuspiciousUsers/AllSuspiciousUser",{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/AdminSuspiciousUsers/AllSuspiciousUser`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((response) => response.json())
         .then((resp)=> {
             setSuspiciusUsers(resp)
@@ -81,7 +82,7 @@ export default function AdminHomePage () {
                         <a href= {"AdminPutSingleUser/"+user.id} className="btn btn-warning">Change</a>
                         <a href={"AdminDeleteUser/"+user.id} className="btn btn-danger ms-2">Delete</a>
                         <a className="btn btn-info ms-2" onClick={async() => {
-                            fetch(`http://localhost:7043/AdminSuspiciousUsers/AddSuspicious?id=${user.id}`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                            fetch(`${url}/AdminSuspiciousUsers/AddSuspicious?id=${user.id}`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                         }}>Suspicius</a>
                     </div>    
                 </div>
@@ -96,7 +97,7 @@ export default function AdminHomePage () {
                 if (e.target.elements.searchByNameUser1.value == null || e.target.elements.searchByNameUser1.value == "") {
                     alert("Please enter something in the searchbar!")
                 }else{
-                    fetch(`http://localhost:7043/AdminUsers/SearchName?nev=${e.target.elements.searchByNameUser1.value}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                    fetch(`${url}/AdminUsers/SearchName?nev=${e.target.elements.searchByNameUser1.value}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                     .then((response) => response.json())
                     .then((resp)=> {
                         setUserByName(resp)
@@ -140,7 +141,7 @@ export default function AdminHomePage () {
                 if (e.target.elements.searchByNamePost1.value == null || e.target.elements.searchByNamePost1.value == "") {
                     alert("Please enter something in the searchbar!")
                 }else{
-                    fetch(`http://localhost:7043/AdminUserPost/SearchPost?nev=${e.target.elements.searchByNamePost1.value}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                    fetch(`${url}/AdminUserPost/SearchPost?nev=${e.target.elements.searchByNamePost1.value}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                     .then((response) => response.json())
                     .then((resp)=> {
                         setPostByName(resp)
@@ -213,7 +214,7 @@ export default function AdminHomePage () {
                                 <p>Last login: {x.user.lastLogin}</p>
                                 <p>Registration date: {x.user.registrationDate}</p>
                                 <a className="btn btn-danger ms-2" onClick={async() => {
-                                    fetch(`http://localhost:7043/AdminSuspiciousUsers/DeleteSuspiciousById?id=${x.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                                    fetch(`${url}/AdminSuspiciousUsers/DeleteSuspiciousById?id=${x.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                                     .catch((x)=>console.log(x))
                                 }}>Remove</a>
                             </div>

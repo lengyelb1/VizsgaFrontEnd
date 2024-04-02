@@ -4,6 +4,7 @@ import NewPost from './NewPost';
 import '../User/UserHomePage.css';
 import { jwtDecode } from 'jwt-decode';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { url } from '../../connect2getherUrl.mjs';
 
 export default function UserHomePageV2(){
 
@@ -13,10 +14,9 @@ export default function UserHomePageV2(){
     const [isFetchPending, setFetchPending] = useState(false);
     const [feed,setFeed] = useState();
     const [refrDatas,refreshDatas] = useState(0)
-    console.log(refrDatas)
     useEffect(() => {
         setFetchPending(true);
-        fetch(`http://localhost:7043/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
+        fetch(`${url}/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
         .then((res) => res.json())
         .then((data) => {
             setFeed(<div><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><PostsKi posts={data}/></div>);
@@ -36,7 +36,7 @@ export default function UserHomePageV2(){
                 <input className="form-control me-2 input-green" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={async (e)=>{
                     if (e.target.value.trim() !== "" && e.target.value.trim() !== "@") {
                         setFetchPending(true);
-                        fetch(`http://localhost:7043/User/SearchWithNameOrTitle?keresettErtek=${e.target.value}&userId=${jwtDecode(localStorage.getItem("token")).id}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
+                        fetch(`${url}/User/SearchWithNameOrTitle?keresettErtek=${e.target.value}&userId=${jwtDecode(localStorage.getItem("token")).id}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
                         .then((response) => response.json())
                         .then((data) => {
                             if (data.length > 0) {
@@ -60,7 +60,7 @@ export default function UserHomePageV2(){
                         })
                     } else {
                         setFetchPending(true);
-                        fetch(`http://localhost:7043/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                        fetch(`${url}/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                         .then((res) => res.json())
                         .then((data) => {
                             setFeed(<div><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><PostsKi posts={data}/></div>);
@@ -123,7 +123,6 @@ export default function UserHomePageV2(){
                 )
             }
             else{
-                console.log("Posts ki")
                 return (params.posts.map((post) => <Post_ key={post.id + 2} post={post}/>))
             }
         }
@@ -147,7 +146,6 @@ export default function UserHomePageV2(){
                 <div className='card-body p-1 mx-auto'>
                     <p className=''>Points: {user.point}</p>
                 </div>
-                {console.log(user)}
             </div>
         ))
     }
@@ -170,7 +168,7 @@ export default function UserHomePageV2(){
                         <button className='btn rounded' onClick={
                             async () => {
                                 setFetchPending(true)
-                                fetch(`http://localhost:7043/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
+                                fetch(`${url}/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
                                     "postId": post.id,
                                     "userId": jwtDecode(localStorage.getItem("token")).id,
                                     "isLiked": false
@@ -208,7 +206,7 @@ export default function UserHomePageV2(){
                         <button className='btn rounded' onClick={
                             async () => {
                                 setFetchPending(true)
-                                fetch(`http://localhost:7043/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
+                                fetch(`${url}/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
                                     "postId": post.id,
                                     "userId": jwtDecode(localStorage.getItem("token")).id,
                                     "isLiked": true

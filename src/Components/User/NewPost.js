@@ -1,3 +1,4 @@
+import { url } from '../../connect2getherUrl.mjs';
 import '../User/UserHomePage.css';
 import { jwtDecode } from 'jwt-decode';
 
@@ -17,7 +18,7 @@ export default function NewPost (proms){
                 //var file = e.target.elements.imageFileChooser.value
                 
                 var id = parseFloat(jwtDecode(localStorage.getItem("token")).id);
-                fetch("http://localhost:7043/UserPost/AddUserPost", {
+                fetch(`${url}/UserPost/AddUserPost`, {
                     method: "POST",
                     headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},
                     body: JSON.stringify({

@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import NewComment from './NewComment';
 import NewPost from './NewPost';
 import { jwtDecode } from 'jwt-decode';
+import { url } from "../../connect2getherUrl.mjs";
 
 export default function SinglePostDisplay(){
     const prop = useParams();
     const [data,setData] = useState();
 
     useEffect(()=>{
-        fetch(`http://localhost:7043/UserPost/UserPostByIdWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}&postId=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/UserPost/UserPostByIdWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}&postId=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((r)=>
             r.json()
         )
@@ -25,7 +26,6 @@ export default function SinglePostDisplay(){
                     {params.post.comments.map((comment) => (
                     <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
                         <p className='card-title'>{comment.user.username}</p>
-                        {console.log(comment)}
                         <div className='card-body p-1 mx-auto'>
                             <p className=''>{comment.text}</p>
                         </div>
@@ -68,7 +68,7 @@ export default function SinglePostDisplay(){
                             {data.like}
                             <button className='btn rounded' onClick={
                                 async () => {
-                                    fetch(`http://localhost:7043/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
+                                    fetch(`${url}/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
                                         "postId": data.id,
                                         "userId": jwtDecode(localStorage.getItem("token")).id,
                                         "isLiked": false
@@ -114,7 +114,7 @@ export default function SinglePostDisplay(){
                             {data.like}
                             <button className='btn rounded' onClick={
                                 async () => {
-                                    fetch(`http://localhost:7043/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
+                                    fetch(`${url}/UserPost/Like`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body: JSON.stringify({
                                         "postId": data.id,
                                         "userId": jwtDecode(localStorage.getItem("token")).id,
                                         "isLiked": true
