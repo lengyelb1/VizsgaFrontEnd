@@ -36,7 +36,7 @@ export default function UserHomePageV2(){
                 <input className="form-control me-2 input-green" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={async (e)=>{
                     if (e.target.value.trim() !== "" && e.target.value.trim() !== "@") {
                         setFetchPending(true);
-                        fetch(`${url}/User/SearchWithNameOrTitle?keresettErtek=${e.target.value}&userId=${jwtDecode(localStorage.getItem("token")).id}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
+                        await fetch(`${url}/User/SearchWithNameOrTitle?keresettErtek=${e.target.value}&userId=${jwtDecode(localStorage.getItem("token")).id}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
                         .then((response) => response.json())
                         .then((data) => {
                             if (data.length > 0) {
@@ -129,14 +129,25 @@ export default function UserHomePageV2(){
     }
     /* Comment card Render */
     function CommentsKi (params) {
-        return params.post.comments.map((comment) => (
-            <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 text-light'>
-                <p className='card-title'>{comment.user.username}</p>
-                <div className='card-body p-1 mx-auto'>
-                    <p className=''>{comment.text}</p>
-                </div>
-            </div>    
-        ))    
+        return params.post.comments.map((comment) => {
+            if (comment.user) {
+                return(<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 text-light'>
+                    <p className='card-title'>{comment.user.username}</p>
+                    <div className='card-body p-1 mx-auto'>
+                        <p className=''>{comment.text}</p>
+                    </div>
+                </div>)
+            }else{
+                console.log("A comment.user.username nem tér vissza!")
+                return(<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 text-light'>
+                    <p className='card-title'>{comment.userId}</p>
+                    <div className='card-body p-1 mx-auto'>
+                        <p className=''>{comment.text}</p>
+                    </div>
+                </div>)
+            }
+
+        })    
     }
     /* User card Render */
     function UsersKi (params) {
