@@ -31,7 +31,7 @@ export default function UserHomePageV2(){
     return(
     <div className='bg-dark p-2'>
         <nav className="navbar navbar-dark p-2 bg-dark text-green border-bottom-green fixed-top shadow">
-            <div className='nav-item'>
+            <div className='nav-item col-sm-6 col-md-3'>
                 <form className="d-flex">
                 <input className="form-control me-2 input-green" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={async (e)=>{
                     if (e.target.value.trim() !== "" && e.target.value.trim() !== "@") {
@@ -74,7 +74,7 @@ export default function UserHomePageV2(){
 
                 </form>
             </div>
-            <div className="nav-item">
+            <div className="nav-item col-6">
                 <Dropdown id='btn-profile'>
                   <Dropdown.Toggle variant="" className='btn-green' id="dropdown-basic">
                     Profile

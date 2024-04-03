@@ -4,6 +4,7 @@ import NewComment from './NewComment';
 import NewPost from './NewPost';
 import { jwtDecode } from 'jwt-decode';
 import { url } from "../../connect2getherUrl.mjs";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function SinglePostDisplay(){
     const prop = useParams();
@@ -23,14 +24,24 @@ export default function SinglePostDisplay(){
         if (params.post.comments != null && params.post.comments != "null") {
             return (
                 <div>
-                    {params.post.comments.map((comment) => (
-                    <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                        <p className='card-title'>{comment.user.username}</p>
-                        <div className='card-body p-1 mx-auto'>
-                            <p className=''>{comment.text}</p>
-                        </div>
-                    </div>
-                    ))}
+                    {params.post.comments.map((comment) => {
+                        if (comment.user) {
+                            return (<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
+                                <p className='card-title'>{comment.user.username}</p>
+                                <div className='card-body p-1 mx-auto'>
+                                    <p className=''>{comment.text}</p>
+                                </div>
+                            </div>)
+                        }else{
+                            return(<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
+                                <p className='card-title'>{comment.userId}</p>
+                                <div className='card-body p-1 mx-auto'>
+                                    <p className=''>{comment.text}</p>
+                                </div>
+                            </div>)
+                        }
+
+                    })}
                     <NewComment postId={params.post.id} userId={1}/>
                 </div>
             )    
@@ -54,7 +65,16 @@ export default function SinglePostDisplay(){
                           <a className="nav-link" href="/UserHomePage">HomePage</a>
                         </div>
                         <div className="nav-item">
-                          <a className="nav-link" href="/ProfilePage">Profile</a>
+                            <Dropdown id='btn-profile'>
+                              <Dropdown.Toggle variant="" className='btn-green' id="dropdown-basic">
+                                Profile
+                              </Dropdown.Toggle>
+
+                              <Dropdown.Menu className='btn-profile-menu'>
+                                <Dropdown.Item className='btn-profile-content' href="/ProfilePage">Details</Dropdown.Item>
+                                <Dropdown.Item className='btn-profile-content' href="/" onClick={async ()=>{ await localStorage.setItem("token",undefined) }}>Log Out</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
                         </div>
                     </nav>
                     <br/>
@@ -100,7 +120,16 @@ export default function SinglePostDisplay(){
                           <a className="nav-link" href="/UserHomePage">HomePage</a>
                         </div>
                         <div className="nav-item">
-                          <a className="nav-link" href="/ProfilePage">Profile</a>
+                            <Dropdown id='btn-profile'>
+                              <Dropdown.Toggle variant="" className='btn-green' id="dropdown-basic">
+                                Profile
+                              </Dropdown.Toggle>
+
+                              <Dropdown.Menu className='btn-profile-menu'>
+                                <Dropdown.Item className='btn-profile-content' href="/ProfilePage">Details</Dropdown.Item>
+                                <Dropdown.Item className='btn-profile-content' href="/" onClick={async ()=>{ await localStorage.setItem("token",undefined) }}>Log Out</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
                         </div>
                     </nav>
                     <br/>

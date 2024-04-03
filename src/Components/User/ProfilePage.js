@@ -38,7 +38,7 @@ export default function ProfilePage (){
                 <div className='col-12 mt-5'>
                     <br/>
                 </div>
-                <div className='col-12 row ms-2'>
+                <div className='col-6 row ms-2'>
                     {console.log(data)}
                     <h3>{data.username}</h3>
                     <p>{data.email}</p>
