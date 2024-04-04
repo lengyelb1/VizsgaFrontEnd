@@ -16,22 +16,27 @@ export default function AdminSinglePost(){
     },[]);
 
     function CommentsKi (params) {
-        if (params.post.comments.length > 0) {
-            return (
-                <div>
-                    {params.post.comments.map((comment) => (
-                    <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                        <p className='card-title'>{comment.userId}</p>
-                        <div className='card-body p-1 mx-auto'>
-                            <p className=''>{comment.text}</p>
+        if (params.post.comments) {
+            if (params.post.comments.length > 0) {
+                return (
+                    <div>
+                        {params.post.comments.map((comment) => (
+                        <div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
+                            <p className='card-title'>{comment.userId}</p>
+                            <div className='card-body p-1 mx-auto'>
+                                <p className=''>{comment.text}</p>
+                            </div>
                         </div>
+                        ))}
                     </div>
-                    ))}
-                </div>
-            )    
+                )    
+            }else{
+                return (<p>No comments</p>)
+            }    
         }else{
             return (<p>No comments</p>)
         }
+        
     }
     if (data != null) {
         return(

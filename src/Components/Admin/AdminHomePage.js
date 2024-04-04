@@ -14,13 +14,13 @@ export default function AdminHomePage () {
     const [postByName,setPostByName] = useState();
 
     useEffect(()=>{
-        fetch(`${url}/AdminUsers/UserDb`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/AdminUsers/UserCount`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((response) => response.json())
         .then((resp)=> {
             setUserDb(resp)
         })
 
-        fetch(`${url}/AdminUserPost/UserPostDb`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/AdminUserPost/UserPostCount`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((response) => response.json())
         .then((resp)=> {
             setPostDb(resp)
@@ -185,8 +185,7 @@ export default function AdminHomePage () {
             <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                 <div className='card-body '>
                     <a href={`/AdminSinglePost/${post.id}`} className="text-light text-decoration-none">
-                        <h5 className='text-light'>{post.userId}</h5>
-                        {console.log(post)}
+                        <h5 className='text-light'>{post.user.username}</h5>
                         <h5 className=''>{post.title}</h5>
                         <div className='small'>{post.description}</div>
                     </a>
