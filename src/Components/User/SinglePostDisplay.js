@@ -9,6 +9,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 export default function SinglePostDisplay(){
     const prop = useParams();
     const [data,setData] = useState();
+    const [refrDatas,refreshDatas] = useState(0)
 
     useEffect(()=>{
         fetch(`${url}/UserPost/UserPostByIdWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}&postId=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
@@ -18,7 +19,7 @@ export default function SinglePostDisplay(){
         .then((resp)=>{
             setData(resp)
         })
-    },[]);
+    },[refrDatas]);
 
     function CommentsKi (params) {
         if (params.post.comments != null && params.post.comments != "null") {
@@ -42,7 +43,7 @@ export default function SinglePostDisplay(){
                         }
 
                     })}
-                    <NewComment postId={params.post.id} userId={1}/>
+                    <NewComment postId={params.post.id} userId={1} refreshDatas={refreshDatas}/>
                 </div>
             )    
         }else{
@@ -93,6 +94,9 @@ export default function SinglePostDisplay(){
                                         "userId": jwtDecode(localStorage.getItem("token")).id,
                                         "isLiked": false
                                       })
+                                    })
+                                    .finally(()=>{
+                                        refreshDatas(refrDatas+1)
                                     })
                                 }
                             }>
@@ -148,6 +152,9 @@ export default function SinglePostDisplay(){
                                         "userId": jwtDecode(localStorage.getItem("token")).id,
                                         "isLiked": true
                                       })
+                                    })
+                                    .finally(()=>{
+                                        refreshDatas(refrDatas+1)
                                     })
                                 }
                             }>

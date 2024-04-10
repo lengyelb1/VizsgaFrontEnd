@@ -118,7 +118,7 @@ export default function UserHomePageV2(){
             if (params.posts.length < 1) {
                 return (
                     <div className='bg-dark text-center text-green mt-5'>
-                        <h4>No posts found</h4>
+                        <h4>No post found</h4>
                     </div>
                 )
             }

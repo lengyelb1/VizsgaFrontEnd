@@ -42,7 +42,6 @@ export default function NewPost (proms){
               <input type="text" name="PostText" placeholder='Post something...' className='w-100 input-green'/>
           </div>
           <button type="submit" className="btn btn-green">Post</button>
-          <input type='file' className='file-input m-1' id='imageFileChooser'/>
         </form>
     )
 }
