@@ -26,17 +26,14 @@ function App() {
 
   var ROLES  = "None"
   
-
   useEffect(()=> {
+
+    if (localStorage.getItem("darkMode") === null) {
+      localStorage.setItem("darkMode",0)
+    }
+
     RefreshRole()    
   })
-  /*
-  console.log("Nyers token: "+localStorage.getItem("token"))
-  console.log(jwtDecode(localStorage.getItem("token")))
-  console.log("Dekódolt token permission: "+jwtDecode(localStorage.getItem("token")).Permission)
-  */
-  
-
 
   return (
     <BrowserRouter>
