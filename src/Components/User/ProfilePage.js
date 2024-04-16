@@ -61,7 +61,8 @@ export default function ProfilePage (){
                     <p>Last login: {data.lastLogin}</p>
                     <p>Registration Date: {data.registrationDate.replace("T00:00:00","")}</p>
                     <p>Points: {data.points}</p>
-                    
+                    <a href='/ChangePassword'><input type="button" value="Change Password" className='btn btn-green'/></a>
+                    <a href='/ChangeUsernameEmail'><input type="button" value="Change Username & Email" className='btn btn-green mt-1'/></a>
                 </div>
             </div>
         )

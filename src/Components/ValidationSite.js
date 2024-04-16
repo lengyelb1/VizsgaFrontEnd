@@ -24,7 +24,10 @@ export default function ValidationSite(){
                             <span className="visually-hidden text-green">Loading...</span>
                         </div>`;
                         await fetch(`${url}/Auth/ValidatedUser?key=${params.key}`,{method:"PUT"})
-                        .finally(()=>navigate("../Login"))
+                        .catch((e)=>{alert("Validation expired!")})
+                        .finally(()=>{
+                            alert("User validated");navigate("../Login")
+                        })
                     }}/>
                 </div>
             </div>

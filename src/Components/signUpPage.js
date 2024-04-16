@@ -19,6 +19,9 @@ export default function SignUpPage () {
           <div className="d-flex vw-100" style={{ borderRadius:'0px 50px 0px 0px', overflow:'hidden'}}>
               <Form className='bg-dark p-2 vw-100' onSubmit={(e)=>{
                 e.preventDefault();
+                e.target.SubmitButton.innerHTML = `<div className="spinner-border text-green" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>`
                 axios({
                   method: 'post',
                   url: `${url}/Auth/Register?validationUrl=${url2}/Validation/`,
@@ -49,7 +52,7 @@ export default function SignUpPage () {
                   <Form.Label>Password</Form.Label>
                   <Form.Control id="password" type="password" placeholder="Password"/>
                 </Form.Group>
-                <Button variant="Dark" className='hover-overlay text-dark fw-bold hover-shadow float-end' type="submit" style={{background: '#A8F231'}}>
+                <Button variant="Dark" name='SubmitButton' className='hover-overlay text-dark fw-bold hover-shadow float-end' type="submit" style={{background: '#A8F231'}}>
                   Submit
                 </Button>
               </Form>

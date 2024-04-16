@@ -16,6 +16,9 @@ import SinglePostDisplay from './Components/User/SinglePostDisplay';
 import AdminSinglePost from './Components/Admin/AdminSinglePost';
 import UserHomePageV2 from './Components/User/UserHomePage_V2';
 import ValidationSite from './Components/ValidationSite';
+import ChangePassword from './Components/User/ChangePassword';
+import ChangeUsernameEmail from './Components/User/ChangeUsernameEmail';
+import SingleDisplayUser from './Components/User/SingleDisplayUser';
 
 function App() {
   //const navigate = useNavigate();
@@ -45,6 +48,9 @@ function App() {
         <Route path="/UserHomePage" element={<UserElement> <UserHomePageV2/> </UserElement>}></Route>
         <Route path="/SinglePostDisplay/:id" element={<UserElement> <SinglePostDisplay/> </UserElement>}></Route>
         <Route path="/ProfilePage" element={<UserElement> <ProfilePage/> </UserElement>}></Route>
+        <Route path="/ChangePassword" element={<UserElement> <ChangePassword/> </UserElement>}></Route>
+        <Route path="/ChangeUsernameEmail" element={<UserElement> <ChangeUsernameEmail/> </UserElement>}></Route>
+        <Route path="/SingleDisplayUser/:id" element={<UserElement> <SingleDisplayUser/> </UserElement>}></Route>
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
         <Route path='/AdminSinglePost/:id' element={<AdminElement> <AdminSinglePost/> </AdminElement>}></Route>
