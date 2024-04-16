@@ -15,6 +15,7 @@ import ProfilePage from './Components/User/ProfilePage';
 import SinglePostDisplay from './Components/User/SinglePostDisplay';
 import AdminSinglePost from './Components/Admin/AdminSinglePost';
 import UserHomePageV2 from './Components/User/UserHomePage_V2';
+import ValidationSite from './Components/ValidationSite';
 
 function App() {
   //const navigate = useNavigate();
@@ -48,6 +49,7 @@ function App() {
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
         <Route path='/AdminSinglePost/:id' element={<AdminElement> <AdminSinglePost/> </AdminElement>}></Route>
         <Route path='/AdminDeleteUser/:id' element={<AdminElement> <AdminDeleteUser/> </AdminElement>}></Route>
+        <Route path='/Validation/:key' element={<PublicElement> <ValidationSite/> </PublicElement>}></Route>
         <Route path="*" element={<NotFound404/>}></Route>
       </Routes>
     </BrowserRouter>

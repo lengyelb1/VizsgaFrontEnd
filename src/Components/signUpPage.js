@@ -3,7 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Logo from './Back4.png';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import {url} from '../connect2getherUrl.mjs'
+import {url, url2} from '../connect2getherUrl.mjs'
+import { Alert } from 'react-bootstrap';
 
 
 
@@ -20,7 +21,7 @@ export default function SignUpPage () {
                 e.preventDefault();
                 axios({
                   method: 'post',
-                  url: `${url}/Auth/Register`,
+                  url: `${url}/Auth/Register?validationUrl=${url2}/Validation/`,
                   data: {
                     userName: document.getElementById('username').value,
                     password: document.getElementById('password').value,
@@ -28,6 +29,7 @@ export default function SignUpPage () {
                   }
                 })
                 .then((resp) => {
+                  alert("Check your email for verification link!");
                   navigate("../Login")
                 })
                 .catch((error)=> {

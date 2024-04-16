@@ -13,7 +13,7 @@ export default function ProfilePage (){
         DarkModeBodySetter();
 
         setFetchPending(true)
-        fetch(`${url}/User/UserById?id=${jwtDecode(localStorage.getItem("token")).id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/UserProfile/UserProfileById?id=${jwtDecode(localStorage.getItem("token")).id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((r)=>
             r.json()
         )
@@ -56,11 +56,11 @@ export default function ProfilePage (){
                 <br/>
                 <div className='col-6 row ms-2 card card-green p-3'>
                     {console.log(data)}
-                    <h3>{data.username}</h3>
+                    <h3>{data.userName}</h3>
                     <p>{data.email}</p>
-                    <p>Last login: {data.lastLogin.replace("T"," ")}</p>
+                    <p>Last login: {data.lastLogin}</p>
                     <p>Registration Date: {data.registrationDate.replace("T00:00:00","")}</p>
-                    <p>Points: {data.point}</p>
+                    <p>Points: {data.points}</p>
                     
                 </div>
             </div>
