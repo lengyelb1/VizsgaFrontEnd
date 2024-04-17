@@ -142,3 +142,18 @@
   .dropdown.light{
     color: #212529 !important;
   }
+
+  .postUserName{
+    color: #ffffff !important;
+  }
+  .postUserName:hover{
+    color: #A8F231 !important;
+  }
+  
+
+  .postUserName.dark{
+    color: black !important;
+  }
+  .postUserName.dark:hover{
+    color: #A8F231 !important;
+  }

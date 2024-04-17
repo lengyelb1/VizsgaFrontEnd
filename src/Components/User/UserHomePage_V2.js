@@ -173,8 +173,8 @@ export default function UserHomePageV2(){
         /*Post card render */
         return (
             <div key={post.id + 1} className={`card col-md-5 p-2 mx-auto mt-3 border border-dark shadow-green ${localStorage.getItem("darkMode")==0? "text-dark ":"bg-dark text-light"}`}>
-                <a className='card-body text-decoration-none' href={`/SingleDisplayUser/${post.userId}`}>
-                    <h5 className=''>{post.userName}</h5>
+                <a className='card-body text-decoration-none ' href={`/SingleDisplayUser/${post.userId}`}>
+                    <h5 className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{post.userName}</h5>
                 </a>
 
                 <a className='card-body text-decoration-none' href={`/SinglePostDisplay/${post.id}`}>

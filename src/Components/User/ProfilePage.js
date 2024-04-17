@@ -27,9 +27,9 @@ export default function ProfilePage (){
 
     if (data) {
         return (
-            <div className='vh-100 text-green w-100'>
+            <div className='vh-100 text-green'>
                 <div className='row'>
-                    <nav className="navbar navbar-dark p-2 text-green w-100 border-bottom-green fixed-top shadow">
+                    <nav className="navbar navbar-dark p-2 text-green border-bottom-green fixed-top shadow">
                         <div className='nav-item float-right'>
                             <Dropdown id='btn-profile' className=''>
                               <Dropdown.Toggle variant="" className={`btn-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"}`} id="dropdown-basic">
@@ -54,7 +54,7 @@ export default function ProfilePage (){
                 </div>
                 <a className="nav-link" href="/UserHomePage"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
                 <br/>
-                <div className='col-6 row ms-2 card card-green p-3'>
+                <div className='w-75 row ms-2 card card-green p-3 mx-auto'>
                     {console.log(data)}
                     <h3>{data.userName}</h3>
                     <p>{data.email}</p>
