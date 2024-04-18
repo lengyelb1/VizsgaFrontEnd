@@ -16,25 +16,31 @@ export default function NewPost (proms){
                 e.persist();
                 e.preventDefault();
                 //var file = e.target.elements.imageFileChooser.value
-                
-                var id = parseFloat(jwtDecode(localStorage.getItem("token")).id);
-                fetch(`${url}/UserPost/AddUserPost`, {
-                    method: "POST",
-                    headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},
-                    body: JSON.stringify({
-                        "description": e.target.elements.PostText.value,
-                        "title": e.target.elements.PostTitle.value,
-                        "userId": id
+                if (e.target.elements.PostText.value == "") {
+                    alert("Input some text!")
+                }else if (e.target.elements.PostTitle.value == "") {
+                    alert("Input a title!")
+                }else{
+                    var id = parseFloat(jwtDecode(localStorage.getItem("token")).id);
+                    fetch(`${url}/UserPost/AddUserPost`, {
+                        method: "POST",
+                        headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},
+                        body: JSON.stringify({
+                            "description": e.target.elements.PostText.value,
+                            "title": e.target.elements.PostTitle.value,
+                            "userId": id
+                        })
                     })
-                })
-                .then((resp) => {
-                    console.log(resp)
-                    alert("Post created!")
-                })
-                .catch(console.log)
-                .finally(()=>{
-                    proms.refreshDatas(proms.refrDatas+1)
-                })
+                    .then((resp) => {
+                        console.log(resp)
+                        alert("Post created!")
+                    })
+                    .catch(console.log)
+                    .finally(()=>{
+                        proms.refreshDatas(proms.refrDatas+1)
+                    })
+                }
+                
             }
         }>
           <div className="mb-3">
