@@ -5,7 +5,7 @@ import '../User/UserHomePage.css';
 import { jwtDecode } from 'jwt-decode';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { url } from '../../connect2getherUrl.mjs';
-import { DarkModeBodySetter, DarkModeLogoText, DarkModeSwitch, DisplayDarkModeLogos, LightModeLogoText } from '../DarkModeFunctions';
+import { DarkModeBodySetter, DarkModeLogoText, DarkModeSwitch, DisplayDarkModeLogos, LightModeLogoText } from '../Functions/DarkModeFunctions';
 
 export default function UserHomePageV2(){
 
@@ -15,8 +15,6 @@ export default function UserHomePageV2(){
     const [isFetchPending, setFetchPending] = useState(false);
     const [feed,setFeed] = useState();
     const [refrDatas,refreshDatas] = useState(0)
-
-    
 
     useEffect(() => {
         DarkModeBodySetter();
@@ -146,7 +144,9 @@ export default function UserHomePageV2(){
         return params.post.comments.map((comment) => {
             
             return(<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className={`card card-green col-12 d-inline-block m-1 p-1 ${localStorage.getItem("darkMode")==0? "text-dark":"text-green"}`}>
-                <p className='card-title'>{comment.userName}</p>
+                <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${comment.userId}`}>
+                    <p className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userName}</p>
+                </a>
                 <div className='card-body p-1 mx-auto'>
                     <p className="">{comment.text}</p>
                 </div>
@@ -188,7 +188,6 @@ export default function UserHomePageV2(){
                     
                 </div>
                 <div>
-                    
                     <CommentsKi post={post}/>
                     <NewComment refreshDatas = {refreshDatas} refrDatas ={refrDatas} postId={post.id}/>
                 </div>

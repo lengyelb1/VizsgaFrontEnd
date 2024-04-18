@@ -1,9 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Logo from './Back4.png';
+import Logo from '../Back4.png';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import {url, url2} from '../connect2getherUrl.mjs'
+import {url, url2} from '../../connect2getherUrl.mjs'
 import { Alert } from 'react-bootstrap';
 
 

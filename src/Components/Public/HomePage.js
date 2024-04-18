@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import '../css/HomePage.css';
-import Logo from './Back4.png';
+import '../../css/HomePage.css';
+import Logo from '../Back4.png';
 import Toast from 'react-bootstrap/Toast';
 
 export default function HomePage () {

@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NewComment from './NewComment';
 import NewPost from './NewPost';
 import { jwtDecode } from 'jwt-decode';
 import { url } from "../../connect2getherUrl.mjs";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { DarkModeBodySetter, DarkModeSwitch, DisplayDarkModeLogos } from "../DarkModeFunctions";
+import { DarkModeBodySetter, DarkModeSwitch, DisplayDarkModeLogos } from "../Functions/DarkModeFunctions";
 
 export default function SinglePostDisplay(){
     const prop = useParams();
     const [data,setData] = useState();
     const [refrDatas,refreshDatas] = useState(0)
     const [isFetchPending, setFetchPending] = useState(false);
+    const navigate = useNavigate();
     
 
     useEffect(()=>{
@@ -32,9 +33,7 @@ export default function SinglePostDisplay(){
                 <div className={`vh-100 ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`} >
                     <nav className={`navbar ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-green w-100 border-bottom-green fixed-top shadow`}>
                         <div className="nav-item">
-                          <a className="nav-link" href="/" onClick={()=>{
-                              localStorage.setItem("token",undefined)
-                          }}>Log Out</a>
+                            <a href="../UserHomePage" className={`${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-decoration-none`}>Home</a>
                         </div>
                         <div className="nav-item">
                             <Dropdown id='btn-profile'>
@@ -56,9 +55,11 @@ export default function SinglePostDisplay(){
                     <br/>
                     <br/>
                     <div key={data.id + 1} className={`card col-md-5 p-2 mx-auto mt-4 border border-dark shadow-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
-                        <a className="nav-link" href="/UserHomePage"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
+                        <a className="nav-link" onClick={async ()=>{await navigate(-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
                         <div className='card-body'>
-                            <h5 className=''>{data.userName}</h5>
+                            <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${data.userId}`}>
+                                <h5 className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{data.userName}</h5>
+                            </a>
                             <h5 className=''>{data.title}</h5>
                             <div className='small'>{data.description}</div>
                         </div>
@@ -94,14 +95,18 @@ export default function SinglePostDisplay(){
                     {params.post.comments.map((comment) => {
                         if (comment.user) {
                             return (<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                                <p className='card-title'>{comment.userName}</p>
+                                <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${comment.userId}`}>
+                                    <p className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userName}</p>
+                                </a>
                                 <div className='card-body p-1 mx-auto'>
                                     <p className=''>{comment.text}</p>
                                 </div>
                             </div>)
                         }else{
                             return(<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                                <p className='card-title'>{comment.userName}</p>
+                                <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${comment.userId}`}>
+                                    <p className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userName}</p>
+                                </a>
                                 <div className='card-body p-1 mx-auto'>
                                     <p className=''>{comment.text}</p>
                                 </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './User/UserHomePage.css';
+import '../User/UserHomePage.css';
 
 
 export default function NotFound404 () {

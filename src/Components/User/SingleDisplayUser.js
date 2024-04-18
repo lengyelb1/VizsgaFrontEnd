@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../../connect2getherUrl.mjs";
 import NewComment from "./NewComment";
 import { jwtDecode } from "jwt-decode";
-import { DarkModeSwitch, DisplayDarkModeLogos } from "../DarkModeFunctions";
+import { DarkModeSwitch, DisplayDarkModeLogos } from "../Functions/DarkModeFunctions";
 import { Dropdown } from "react-bootstrap";
 
 export default function SingleDisplayUser () {
@@ -12,7 +12,7 @@ export default function SingleDisplayUser () {
     const [data,setData] = useState();
     const [refrDatas,refreshDatas] = useState(0)
     const [isFetchPending, setFetchPending] = useState(false);
-    
+    const navigate = useNavigate();
 
     useEffect(()=>{
         setFetchPending(true)
@@ -29,12 +29,16 @@ export default function SingleDisplayUser () {
     return(
         <div className={`min-vh-100 ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
             <nav className={`navbar navbar-dark p-2 text-green w-100 border-bottom-green fixed-top shadow ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
+                <div className="nav-item">
+                    <a href="../UserHomePage" className={`${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-decoration-none`}>Home</a>
+                </div>
                 <div className='nav-item float-right'>
                     <Dropdown id='btn-profile' className=''>
                       <Dropdown.Toggle variant="" className={`btn-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"}`} id="dropdown-basic">
                         Profile
                       </Dropdown.Toggle>
                       <Dropdown.Menu className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark"}`}>
+                        <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/ProfilePage">Details</Dropdown.Item>
                         <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} onClick={async ()=>{
                             DarkModeSwitch()
                             await refreshDatas(refrDatas+1)
@@ -69,8 +73,8 @@ export default function SingleDisplayUser () {
             return(
                 <div className={`col-9 p-2 mx-auto mt-4  ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
                     <div className='constent p-2'>
-                        {console.log(data)}
-                        <a className="nav-link" href="/UserHomePage"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
+                        
+                        <a className="nav-link" onClick={async ()=>{await navigate(-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
                         <h3 className='text-green'>{data[0].username}</h3>
                         <h5 className=''>Last Login: {data[0].lastLogin.replace("T"," ")}</h5>
                         <h5 className=''>Registration Date: {data[0].registrationDate.replace("T00:00:00","")}</h5>
@@ -198,8 +202,8 @@ export default function SingleDisplayUser () {
         /*Post card render */
         return (
             <div key={post.id + 1} className={`card col-md-5 p-2 mx-auto mt-3 border border-dark shadow-green ${localStorage.getItem("darkMode")==0? "text-dark ":"bg-dark text-light"}`}>
-                <a className='card-body text-decoration-none' href={`/SingleDisplayUser/${post.userId}`}>
-                    <h5 className=''>{post.userName}</h5>
+                <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${post.userId}`}>
+                    <p className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{post.userName}</p>
                 </a>
 
                 <a className='card-body text-decoration-none' href={`/SinglePostDisplay/${post.id}`}>

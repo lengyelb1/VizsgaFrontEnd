@@ -1,13 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Logo from './Back4.png';
+import Logo from '../Back4.png';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import Toast from 'react-bootstrap/Toast';
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import {url} from '../connect2getherUrl.mjs'
+import {url} from '../../connect2getherUrl.mjs'
 
 
 export default function LoginPageV2 (props) {
