@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { url } from "../../connect2getherUrl.mjs";
+import { url } from "../../connect2getherUrl.js";
 
 export default function AdminPutSingleUser(prop){
     const navigate = useNavigate();

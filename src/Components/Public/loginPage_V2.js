@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import Toast from 'react-bootstrap/Toast';
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import {url} from '../../connect2getherUrl.mjs'
+import {url} from '../../connect2getherUrl.js'
 
 
 export default function LoginPageV2 (props) {

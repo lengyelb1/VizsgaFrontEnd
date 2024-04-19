@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-import NewComment from './NewComment';
-import NewPost from './NewPost';
+import NewComment from "../Functions/NewComment";
+import NewPost from '../Functions/NewPost';
 import { jwtDecode } from 'jwt-decode';
-import { url } from "../../connect2getherUrl.mjs";
+import { url } from "../../connect2getherUrl.js";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { DarkModeBodySetter, DarkModeSwitch, DisplayDarkModeLogos } from "../Functions/DarkModeFunctions";
+import MyNavBar from "../Functions/MyNavBar.js";
 
 export default function SinglePostDisplay(){
     const prop = useParams();
@@ -31,27 +32,7 @@ export default function SinglePostDisplay(){
     if (data != null) {
             return(
                 <div className={`vh-100 ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`} >
-                    <nav className={`navbar ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-green w-100 border-bottom-green fixed-top shadow`}>
-                        <div className="nav-item">
-                            <a href="../UserHomePage" className={`${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-decoration-none`}>Home</a>
-                        </div>
-                        <div className="nav-item">
-                            <Dropdown id='btn-profile'>
-                              <Dropdown.Toggle variant="" className='btn-green' id="dropdown-basic">
-                                Profile
-                              </Dropdown.Toggle>
-
-                              <Dropdown.Menu className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark"}`}>
-                                <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/ProfilePage">Details</Dropdown.Item>
-                                <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/" onClick={async ()=>{ await localStorage.setItem("token",undefined) }}>Log Out</Dropdown.Item>
-                                <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} onClick={async ()=>{
-                                    DarkModeSwitch()
-                                    await refreshDatas(refrDatas+1)
-                                }}><DisplayDarkModeLogos/></Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                    </nav>
+                    <MyNavBar refrDatas={refrDatas} refreshDatas={refreshDatas}/>
                     <br/>
                     <br/>
                     <div key={data.id + 1} className={`card col-md-5 p-2 mx-auto mt-4 border border-dark shadow-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>

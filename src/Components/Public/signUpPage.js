@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Logo from '../Back4.png';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import {url, url2} from '../../connect2getherUrl.mjs'
+import {url, url2} from '../../connect2getherUrl.js'
 import { Alert } from 'react-bootstrap';
 
 

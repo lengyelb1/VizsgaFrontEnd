@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import './AdminHomePage.css';
 import { NavLink } from "react-bootstrap";
-import { url } from "../../connect2getherUrl.mjs";
+import { url } from "../../connect2getherUrl.js";
 
 
 export default function AdminHomePage () {

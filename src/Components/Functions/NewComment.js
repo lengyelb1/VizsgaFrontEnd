@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import '../User/UserHomePage.css';
 import { jwtDecode } from 'jwt-decode';
-import { url } from '../../connect2getherUrl.mjs';
+import { url } from '../../connect2getherUrl.js';
 
 
 

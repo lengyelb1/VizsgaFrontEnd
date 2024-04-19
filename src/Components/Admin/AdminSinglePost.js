@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { url } from "../../connect2getherUrl.mjs";
+import { url } from "../../connect2getherUrl.js";
 export default function AdminSinglePost(){
     const prop = useParams();
     const [data,setData] = useState();
