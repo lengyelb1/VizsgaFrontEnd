@@ -28,7 +28,7 @@ function LikeButtonHtml(params){
                   })
                 })
                 .finally( () => {
-                    params.refreshDatas(params.refrDatas+1)
+                    params.refreshDatas(params.refrDatas+1)                        
                 })
             }
         }>
@@ -57,7 +57,7 @@ export function PostsKi (params) {
             )
         }
         else{
-            return (params.posts.map((post) => <Post_ key={post.id + 2} post={post}/>))
+            return (params.posts.map((post) => <Post_ key={post.id + 2} post={post} refreshDatas={params.refreshDatas} refrDatas={params.refrDatas}/>))
         }
     }
 }
@@ -79,7 +79,14 @@ function Post_ (params) {
                 <LikeButton post = {post} refreshDatas={params.refreshDatas} refrDatas={params.refrDatas}/>
                 
             </div>
-            <div>
+            <p class="d-inline-flex gap-1">
+                <button class="btn btn-green" type="button" data-bs-toggle="collapse" data-bs-target={`#collapseExample${post.id}`} aria-expanded="false" aria-controls="collapseExample">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
+                    </svg>
+                </button>
+            </p>
+            <div class="collapse" id={`collapseExample${post.id}`}>
                 <CommentsKi post={post}/>
                 <NewComment refreshDatas = {params.refreshDatas} refrDatas ={params.refrDatas} postId={params.post.id}/>
             </div>

@@ -25,7 +25,7 @@ export default function UserHomePageV2(){
         fetch(`${url}/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
         .then((res) => res.json())
         .then((data) => {
-            setFeed(<div><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><PostsKi posts={data}/></div>);
+            setFeed(<div><br/><br/><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><PostsKi posts={data} refreshDatas={refreshDatas} refrDatas={refrDatas}/></div>);
         })
         .catch(console.log)
         .finally(() => {

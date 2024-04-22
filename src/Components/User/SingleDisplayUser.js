@@ -53,11 +53,14 @@ export default function SingleDisplayUser () {
             return(
                 <div className={`col-9 p-2 mx-auto mt-4  ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
                     <div className='constent p-2'>
-                        
+                        {console.log(data)}
                         <a className="nav-link" onClick={async ()=>{await navigate(-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
                         <h3 className='text-green'>{data[0].username}</h3>
                         <h5 className=''>Last Login: {data[0].lastLogin.replace("T"," ")}</h5>
                         <h5 className=''>Registration Date: {data[0].registrationDate.replace("T00:00:00","")}</h5>
+                        <h5 className='text-green'>Rank: {data[0].rank.name}</h5>
+                        <h5 className='text-green'>Points: {data[0].points}</h5>
+
                         <div className='small'></div>
                     </div>
                     <div className='text-green align-middle'>
@@ -76,16 +79,20 @@ export default function SingleDisplayUser () {
             return (
                 <div>
                     {params.post.comments.map((comment) => {
-                        if (comment.user) {
+                        if (comment.userName) {
                             return (<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                                <p className='card-title'>{comment.user.username}</p>
+                                <a className='text-decoration-none ' href={`/SingleDisplayUser/${comment.userId}`}>
+                                    <p className={`card-title postUserName ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userName}</p>
+                                </a>
                                 <div className='card-body p-1 mx-auto'>
                                     <p className=''>{comment.text}</p>
                                 </div>
                             </div>)
                         }else{
                             return(<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                                <p className='card-title'>{comment.userId}</p>
+                                <a className='text-decoration-none' href={`/SingleDisplayUser/${comment.userId}`}>
+                                    <p className={`card-title postUserName ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userId}</p>
+                                </a>
                                 <div className='card-body p-1 mx-auto'>
                                     <p className=''>{comment.text}</p>
                                 </div>
