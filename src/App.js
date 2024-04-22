@@ -18,6 +18,8 @@ import ValidationSite from './Components/Public/ValidationSite';
 import ChangePassword from './Components/User/ChangePassword';
 import ChangeUsernameEmail from './Components/User/ChangeUsernameEmail';
 import SingleDisplayUser from './Components/User/SingleDisplayUser';
+import PostChange from './Components/User/PostChange';
+import CommentChange from './Components/User/CommentChange';
 
 function App() {
   //const navigate = useNavigate();
@@ -50,6 +52,8 @@ function App() {
         <Route path="/ChangePassword" element={<UserElement> <ChangePassword/> </UserElement>}></Route>
         <Route path="/ChangeUsernameEmail" element={<UserElement> <ChangeUsernameEmail/> </UserElement>}></Route>
         <Route path="/SingleDisplayUser/:id" element={<UserElement> <SingleDisplayUser/> </UserElement>}></Route>
+        <Route path="/PostChange/:id" element={<UserElement> <PostChange/> </UserElement>}></Route>
+        <Route path="/CommentChange/:id" element={<UserElement> <CommentChange/> </UserElement>}></Route>
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
         <Route path='/AdminSinglePost/:id' element={<AdminElement> <AdminSinglePost/> </AdminElement>}></Route>

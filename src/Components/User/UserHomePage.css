@@ -157,3 +157,8 @@
   .postUserName.dark:hover{
     color: #A8F231 !important;
   }
+
+  .modal-content.dark {
+    background-color: #212529;
+    color: #A8F231;
+  }

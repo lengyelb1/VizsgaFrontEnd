@@ -45,7 +45,7 @@ export default function NewPost (proms){
         }>
           <div className="mb-3">
               <input type="text" name="PostTitle" placeholder='Title' className='w-100 input-green'/>
-              <input type="text" name="PostText" placeholder='Post something...' className='w-100 input-green'/>
+              <textarea name="PostText" placeholder='Post something...' className='w-100 input-green'/>
           </div>
           <button type="submit" className="btn btn-green">Post</button>
         </form>

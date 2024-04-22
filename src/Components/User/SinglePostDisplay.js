@@ -47,7 +47,6 @@ export default function SinglePostDisplay(){
                         <div className='text-green align-middle'>
                             {data.like}
                             <LikeButton post = {data}/>
-
                         </div>
                         <div>
                             <CommentsKi post={data}/>
