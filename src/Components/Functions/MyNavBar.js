@@ -9,7 +9,7 @@ import { DarkModeBodySetter, DarkModeLogoText, DarkModeSwitch, DisplayDarkModeLo
 import { PostsKi, UsersKi } from './UserFunctions.js';
 export default function MyNavBar(params){
     return(
-        <nav className="navbar navbar-dark p-2 text-green border-bottom-green fixed-top shadow">
+        <nav className={`navbar navbar-dark p-2 text-green border-bottom-green fixed-top shadow ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"}`}>
                 <div className="nav-item ">
                     <a href="../UserHomePage" className={`${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-decoration-none`}>Home</a>
                 </div>

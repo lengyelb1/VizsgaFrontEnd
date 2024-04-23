@@ -20,6 +20,8 @@ import ChangeUsernameEmail from './Components/User/ChangeUsernameEmail';
 import SingleDisplayUser from './Components/User/SingleDisplayUser';
 import PostChange from './Components/User/PostChange';
 import CommentChange from './Components/User/CommentChange';
+import DeletePost from './Components/User/DeletePost';
+import DeleteComment from './Components/User/DeleteComment';
 
 function App() {
   //const navigate = useNavigate();
@@ -54,6 +56,9 @@ function App() {
         <Route path="/SingleDisplayUser/:id" element={<UserElement> <SingleDisplayUser/> </UserElement>}></Route>
         <Route path="/PostChange/:id" element={<UserElement> <PostChange/> </UserElement>}></Route>
         <Route path="/CommentChange/:id" element={<UserElement> <CommentChange/> </UserElement>}></Route>
+        <Route path="/DeletePost/:id" element={<UserElement> <DeletePost/> </UserElement>}></Route>
+        <Route path="/DeleteComment/:id" element={<UserElement> <DeleteComment/> </UserElement>}></Route>
+
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
         <Route path='/AdminSinglePost/:id' element={<AdminElement> <AdminSinglePost/> </AdminElement>}></Route>
