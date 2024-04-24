@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { DarkModeSwitch, DisplayDarkModeLogos } from "../Functions/DarkModeFunctions";
 import { Dropdown } from "react-bootstrap";
 import MyNavBar from "../Functions/MyNavBar.js";
+import { DislikeButton } from "../Functions/UserFunctions.js";
 
 export default function SingleDisplayUser () {
 
@@ -199,6 +200,9 @@ export default function SingleDisplayUser () {
                     {post.like}
                     
                     <LikeButton post = {post}/>
+
+                    {post.dislike}
+                    <DislikeButton post = {post} refreshDatas={refreshDatas} refrDatas={refrDatas}/>
                     
                 </div>
                 <div>

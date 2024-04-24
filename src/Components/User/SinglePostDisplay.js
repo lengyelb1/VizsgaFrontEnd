@@ -7,6 +7,7 @@ import { url } from "../../connect2getherUrl.js";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { DarkModeBodySetter, DarkModeSwitch, DisplayDarkModeLogos } from "../Functions/DarkModeFunctions";
 import MyNavBar from "../Functions/MyNavBar.js";
+import { DislikeButton } from "../Functions/UserFunctions.js";
 
 export default function SinglePostDisplay(){
     const prop = useParams();
@@ -47,6 +48,8 @@ export default function SinglePostDisplay(){
                         <div className='text-green align-middle'>
                             {data.like}
                             <LikeButton post = {data}/>
+                            {data.dislike}
+                            <DislikeButton post = {data} refreshDatas={refreshDatas} refrDatas={refrDatas}/>
                         </div>
                         <div>
                             <CommentsKi post={data}/>
