@@ -24,8 +24,8 @@ export default function FPemailEntry (){
                 </div>`;
 
                 
-                await fetch(`${url}/UserProfile/ForgetPassword?email=${e.target.elements.email.value}&url=${url2}/ForgatePassword/?userId=`,{method:"POST"})
-                .catch((e)=>{alert("Link expired!"); alert(e)})
+                await fetch(`${url}/UserProfile/ForgetPassword?email=${e.target.elements.email.value}&url=${url2}/ForgatePassword/`,{method:"POST"})
+                .catch((e)=>{alert(e)})
                 .finally(()=>{
                     alert("Check your email");navigate("../Login")
                 })

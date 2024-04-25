@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { json, useNavigate, useParams } from "react-router-dom";
 import { url } from "../../connect2getherUrl.js";
 
 export default function FPPasswordEntry (){
-    var params = useParams();
+    var par = useParams();
+    const navigate = useNavigate();
 
     return (
         <div className=''>
@@ -26,18 +27,19 @@ export default function FPPasswordEntry (){
                     alert("Passwords don't match!")
                     
                 }else{
-                    await fetch(`${url}/UserProfile/ForgetPassword2?userId=${params.userId}`,{method:"PUT",body:{
-                        "password": e.target.elements.password.value,
-                    }})
+                    await fetch(`${url}/UserProfile/ForgetPassword2`,{method:"PUT",headers:{'content-type': 'application/json'},body:JSON.stringify({
+                        userId: par.userId,
+                        password: e.target.elements.password.value
+                    })})
                     .catch((e)=>{alert("Link expired!")})
                     .finally(()=>{
-                        alert("Password changed");navigate("../Login")
+                        alert("Password changed");//navigate("../Login")
                     })
                 }
                 
             }}>
-                <input type="text" id="password" name="password" placeholder="Password" required/>
-                <input type="text" id="passwordAgain" name="passwordAgain" placeholder="Password Again" required/>
+                <input type="password" id="password" name="password" placeholder="Password" required/>
+                <input type="password" id="passwordAgain" name="passwordAgain" placeholder="Password Again" required/>
                 <input type="submit" id="SubmitPassword" name="SubmitPassword" value="Submit" className="btn btn-green"/>
             </form>
 

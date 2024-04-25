@@ -61,7 +61,7 @@ function App() {
         <Route path="/DeletePost/:id" element={<UserElement> <DeletePost/> </UserElement>}></Route>
         <Route path="/DeleteComment/:id" element={<UserElement> <DeleteComment/> </UserElement>}></Route>
         <Route path="/ForgatePasswordEmail" element={<PublicElement> <FPemailEntry/> </PublicElement>}></Route>
-        <Route path="/ForgatePassword" element={<PublicElement> <FPPasswordEntry/> </PublicElement>}></Route>
+        <Route path="/ForgatePassword/:userId" element={<PublicElement> <FPPasswordEntry/> </PublicElement>}></Route>
 
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
