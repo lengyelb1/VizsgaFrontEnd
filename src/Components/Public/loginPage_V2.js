@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import Toast from 'react-bootstrap/Toast';
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import {url} from '../../connect2getherUrl.js'
+import {url, url2} from '../../connect2getherUrl.js'
 
 
 export default function LoginPageV2 (props) {
@@ -73,7 +73,7 @@ export default function LoginPageV2 (props) {
                   <Form.Label>Password</Form.Label>
                   <Form.Control id='password' name='password' type="password" placeholder="Password"/>
                   <Form.Text >
-                    <a href='' className="text-muted">Forgot your password?</a>
+                    <a href={`./ForgatePassword`} className="text-muted">Forgot your password?</a>
                   </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
