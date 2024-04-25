@@ -73,7 +73,7 @@ export default function LoginPageV2 (props) {
                   <Form.Label>Password</Form.Label>
                   <Form.Control id='password' name='password' type="password" placeholder="Password"/>
                   <Form.Text >
-                    <a href={`./ForgatePassword`} className="text-muted">Forgot your password?</a>
+                    <a href={`./ForgatePasswordEmail`} className="text-muted">Forgot your password?</a>
                   </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">

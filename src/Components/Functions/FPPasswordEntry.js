@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../../connect2getherUrl.js";
 
 export default function FPPasswordEntry (){
-
+    var params = useParams();
 
     return (
         <div className=''>
@@ -26,7 +26,7 @@ export default function FPPasswordEntry (){
                     alert("Passwords don't match!")
                     
                 }else{
-                    await fetch(`${url}/UserProfile/ForgetPassword2?userId=`,{method:"PUT",body:{
+                    await fetch(`${url}/UserProfile/ForgetPassword2?userId=${params.userId}`,{method:"PUT",body:{
                         "password": e.target.elements.password.value,
                     }})
                     .catch((e)=>{alert("Link expired!")})

@@ -23,6 +23,7 @@ import CommentChange from './Components/User/CommentChange';
 import DeletePost from './Components/User/DeletePost';
 import DeleteComment from './Components/User/DeleteComment';
 import FPemailEntry from './Components/Functions/FPemailEntry';
+import FPPasswordEntry from './Components/Functions/FPPasswordEntry';
 
 function App() {
   //const navigate = useNavigate();
@@ -59,7 +60,8 @@ function App() {
         <Route path="/CommentChange/:id" element={<UserElement> <CommentChange/> </UserElement>}></Route>
         <Route path="/DeletePost/:id" element={<UserElement> <DeletePost/> </UserElement>}></Route>
         <Route path="/DeleteComment/:id" element={<UserElement> <DeleteComment/> </UserElement>}></Route>
-        <Route path="/ForgatePassword" element={<PublicElement> <FPemailEntry/> </PublicElement>}></Route>
+        <Route path="/ForgatePasswordEmail" element={<PublicElement> <FPemailEntry/> </PublicElement>}></Route>
+        <Route path="/ForgatePassword" element={<PublicElement> <FPPasswordEntry/> </PublicElement>}></Route>
 
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
