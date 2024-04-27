@@ -27,19 +27,19 @@ export default function FPPasswordEntry (){
                     alert("Passwords don't match!")
                     
                 }else{
-                    await fetch(`${url}/UserProfile/ForgetPassword2`,{method:"PUT",headers:{'content-type': 'application/json'},body:JSON.stringify({
+                    await fetch(`${url}/UserProfile/ForgetPassword`,{method:"PUT",headers:{'content-type': 'application/json'},body:JSON.stringify({
                         userId: par.userId,
                         password: e.target.elements.password.value
                     })})
                     .catch((e)=>{alert("Link expired!")})
                     .finally(()=>{
-                        alert("Password changed");//navigate("../Login")
+                        alert("Password changed");navigate("../Login")
                     })
                 }
                 
             }}>
-                <input type="password" id="password" name="password" placeholder="Password" required/>
-                <input type="password" id="passwordAgain" name="passwordAgain" placeholder="Password Again" required/>
+                <input type="password" id="password" name="password" placeholder="Password" required className="input-green"/>
+                <input type="password" id="passwordAgain" name="passwordAgain" placeholder="Password Again" required className="input-green"/>
                 <input type="submit" id="SubmitPassword" name="SubmitPassword" value="Submit" className="btn btn-green"/>
             </form>
 
