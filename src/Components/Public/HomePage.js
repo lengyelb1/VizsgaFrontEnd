@@ -1,13 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../css/HomePage.css';
 import Logo from '../Back4.png';
 import Toast from 'react-bootstrap/Toast';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 export default function HomePage () {
     const [showA, setShowA] = useState(true);
         
     const toggleShowA = () => setShowA(!showA);
 
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if (localStorage.getItem("token") == undefined || localStorage.getItem("token") == null || localStorage.getItem("token") == "undefined") {
+
+        }else{
+            if (jwtDecode(localStorage.getItem("token")).role  == "Default") {
+                console.log("Navigate to UserHomePage")
+                navigate("./UserHomePage");
+            }
+            if (jwtDecode(localStorage.getItem("token")).role  == "Admin") {
+                console.log("Navigate to AdminHomePage")
+                navigate("./AdminHomePage");
+            }
+            
+        }
+    },[])
 
     return (
         <div className="bg-dark text-light vh-100 vw-100 mx-auto" data-bs-theme="dark">
