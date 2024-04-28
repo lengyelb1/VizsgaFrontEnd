@@ -5,11 +5,13 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import {url, url2} from '../../connect2getherUrl.js'
 import { Alert } from 'react-bootstrap';
+import { useState } from 'react';
 
 
 
 export default function SignUpPage () {
     const navigate = useNavigate();
+    const [profileImage,setProfileImage] = useState();
     return (
     <div className="bg-dark text-light vh-100 vw-100 mx-auto" data-bs-theme="dark">
         <div className='d-flex h-25' style={{ background: 'linear-gradient(to bottom, #00ADB5,#A8F231)',borderRadius:'0px 0px 0px 50px', overflow:'hidden'}}>
@@ -28,7 +30,9 @@ export default function SignUpPage () {
                   data: {
                     userName: document.getElementById('username').value,
                     password: document.getElementById('password').value,
-                    email: document.getElementById('email').value
+                    email: document.getElementById('email').value,
+                    profileImage: profileImage
+
                   }
                 })
                 .then((resp) => {
@@ -50,6 +54,21 @@ export default function SignUpPage () {
                   <Form.Label>Username</Form.Label>
                   <Form.Control id="username" type="username" placeholder="Enter username"/>
                 </Form.Group>
+                <div className="mb-3">
+                  <label for="profileImage" className="form-label">Profile image</label>
+                  <input onChange={(e) => {
+                  
+                    const file = e.target.files[0];
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                  
+                    reader.onload = function () {
+                      setProfileImage(reader.result.split(',')[1])
+                      console.log(reader.result);
+                    };
+                  
+                  }} className="form-control form-control-sm" id="profileImage" type="file" />
+                </div>
                 <Form.Group className="mb-3 text-light" controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control id="email" type="email" placeholder="Enter email"/>
@@ -58,6 +77,7 @@ export default function SignUpPage () {
                   <Form.Label>Password</Form.Label>
                   <Form.Control id="password" type="password" placeholder="Password"/>
                 </Form.Group>
+                
                 <Button variant="Dark" name='SubmitButton' className='hover-overlay text-dark fw-bold hover-shadow float-end bg-green' type="submit">
                   Submit
                 </Button>

@@ -30,7 +30,7 @@ export default function AdminHomePage () {
             setPostDb(resp)
         })
 
-        fetch(`${url}/AdminSuspiciousUsers/AllSuspiciousUser`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        fetch(`${url}/Moderator/AllSuspiciousUser`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((response) => response.json())
         .then((resp)=> {
             setSuspiciusUsers(resp)
@@ -71,18 +71,18 @@ export default function AdminHomePage () {
                         <input className="form-control me-2 input-green" name='searchBar' id='searchBar' type="search" placeholder="Search" aria-label="Search" onChange={async (e)=>{
                             if (e.target.value.trim() !== "" && e.target.value.trim() !== "@") {
                                 setFetchPending(true);
-                                await fetch(`${url}/AdminUsers/SearchWithNameOrTitle?keresettErtek=${e.target.value}`,{headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
+                                await fetch(`${url}/AdminUsers/SearchWithNameOrTitle`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'},body:JSON.stringify({
+                                    "searchValue": e.target.value
+                                })})
                                 .then((response) => response.json())
                                 .then((data) => {
                                     if (data.length > 0) {
                                         if (data[0].username == undefined) {
-                                            console.log("Post")
                                             setFeed(<div><PostsKi posts={data}/></div>);
                                             //setFeed(<div><h1 className='text-white'>Posts</h1></div>);
                                         
                                         }
                                         else{
-                                            console.log("User")
 
                                             setFeed(<div><UsersKi users = {data}/></div>)
                                             //setFeed(<div><h1 className='text-white'>Users</h1></div>)
@@ -90,7 +90,6 @@ export default function AdminHomePage () {
                                     }else{
                                         setFeed(<div><PostsKi posts={data}/></div>);
                                     }
-                                    console.log(feed)
                                 })
                                 .catch(console.log)
                                 .finally(() => {
@@ -120,7 +119,7 @@ export default function AdminHomePage () {
                     prop.users.map((user) => (
                         <div key={user.id + 1} className='card col-12 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                             <div className='card-body'>
-                                <p className='text-green'>{user.username}</p>
+                                <p className='text-green'>{user.userId}</p>
                                 <p>Email: {user.email}</p>
                                 <p>Point: {user.point}</p>
                                 <p>Last login: {user.lastLogin}</p>
@@ -128,7 +127,7 @@ export default function AdminHomePage () {
                                 <a href= {"AdminPutSingleUser/"+user.id} className="btn btn-warning">Change</a>
                                 <a href={"AdminDeleteUser/"+user.id} className="btn btn-danger ms-2">Delete</a>
                                 <a className="btn btn-info ms-2" onClick={async() => {
-                                    fetch(`${url}/AdminSuspiciousUsers/AddSuspicious?id=${user.id}`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                                    fetch(`${url}/Moderator/AddSuspicious?id=${user.id}`,{method:"POST",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                                 }}>Suspicius</a>
                             </div>    
                         </div>
@@ -158,7 +157,8 @@ export default function AdminHomePage () {
                     <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                         <div className='card-body '>
                             <a href={`/AdminSinglePost/${post.id}`} className="text-light text-decoration-none">
-                                <h5 className='text-light'>{post.user.username}</h5>
+                                <h5 className='text-light'>{post.userId}</h5>
+                                {console.log(post)}
                                 <h5 className=''>{post.title}</h5>
                                 <div className='small'>{post.description}</div>
                             </a>
@@ -195,7 +195,7 @@ export default function AdminHomePage () {
                                 <p>Last login: {x.user.lastLogin}</p>
                                 <p>Registration date: {x.user.registrationDate}</p>
                                 <a className="btn btn-danger ms-2" onClick={async() => {
-                                    fetch(`${url}/AdminSuspiciousUsers/DeleteSuspiciousById?id=${x.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+                                    fetch(`${url}/Moderator/DeleteSuspiciousById?id=${x.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                                     .catch((x)=>console.log(x))
                                 }}>Remove</a>
                             </div>
