@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import NewComment from '../Functions/NewComment';
-import NewPost from '../Functions/NewPost';
-import '../User/UserHomePage.css';
+import NewComment from '../../Functions/NewComment';
+import NewPost from '../../Functions/NewPost.js';
+import '../../User/UserHomePage.css';
 import { jwtDecode } from 'jwt-decode';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { url } from '../../connect2getherUrl.js';
-import { DarkModeBodySetter, DarkModeLogoText, DarkModeSwitch, DisplayDarkModeLogos, LightModeLogoText } from '../Functions/DarkModeFunctions';
-import { PostsKi, UsersKi } from './UserFunctions.js';
+import { url } from '../../../connect2getherUrl.js';
+import { DarkModeBodySetter, DarkModeLogoText, DarkModeSwitch, DisplayDarkModeLogos, LightModeLogoText } from '../../Functions/DarkModeFunctions.js';
+import { PostsKi, UsersKi } from '../../Functions/UserFunctions.js';
 
 
-export default function MyNavBar(params){
+export default function AdminNavBar(params){
     const [alerts, setAlerts] = useState([]);
 
 
@@ -27,7 +27,7 @@ export default function MyNavBar(params){
     return(
         <nav className={`navbar navbar-dark p-2 text-green border-bottom-green fixed-top shadow ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"}`}>
                 <div className="nav-item ">
-                    <a href="../UserHomePage" className={`${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-decoration-none`}>Home</a>
+                    <a href="../AdminHomePage" className={`${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"} p-2 text-decoration-none`}>Home</a>
                 </div>
                 <div className='nav-item'></div>
                 <div className='nav-item'></div>
@@ -37,10 +37,13 @@ export default function MyNavBar(params){
                 <div className="nav-item float-right">
                     <Dropdown id='btn-profile'>
                       <Dropdown.Toggle variant="" className={`btn-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"}`} id="dropdown-basic">
-                        Profile
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
+                          <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                        </svg>
                       </Dropdown.Toggle>
                       <Dropdown.Menu className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark"}`}>
                         <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/ProfilePage">Details</Dropdown.Item>
+                        <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/AdminDashboard">Admin Dashboard</Dropdown.Item>
                         <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} onClick={async ()=>{
                             DarkModeSwitch()
                             params.refreshDatas(params.refrDatas+1)
@@ -57,7 +60,7 @@ export default function MyNavBar(params){
 
 }
 
-export function MyNavBarWithSearch(params){
+export function AdminNavBarWithSearch(params){
     const [alerts, setAlerts] = useState([]);
 
 
@@ -124,10 +127,13 @@ export function MyNavBarWithSearch(params){
                 <div className="nav-item col-lg-2 col-sm-2">
                     <Dropdown id='btn-profile' className={`float-end `}>
                       <Dropdown.Toggle variant="" className={`btn-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"}`} id="dropdown-basic">
-                        Profile
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
+                          <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                        </svg>
                       </Dropdown.Toggle>
                       <Dropdown.Menu className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark"}`}>
-                        <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/ProfilePage">Details</Dropdown.Item>
+                        <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/ProfilePage">Profile</Dropdown.Item>
+                        <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} href="/AdminDashBoard">Admin Dashboard</Dropdown.Item>
                         <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`} onClick={async ()=>{
                             DarkModeSwitch()
                             await params.refreshDatas(params.refrDatas+1)
@@ -160,7 +166,7 @@ function AlertMessages(params){
     return(
         params.messages.map((msg)=>{
             return(
-                <Dropdown.Item className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`}><div className='text-green'>{msg.title}</div><div className='text-light'>{msg.description}</div><hr/></Dropdown.Item>
+                <Dropdown.Item key={msg.id} className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`}><div className='text-green'>{msg.title}</div><div className='text-light'>{msg.description}</div><hr/></Dropdown.Item>
             )
         })
     )

@@ -7,7 +7,6 @@ import NoAccess from './Components/Public/NoAccess';
 import NotFound404 from './Components/Public/NotFound404';
 import { useEffect } from 'react';
 import SignUpPage from './Components/Public/signUpPage';
-import AdminHomePage from './Components/Admin/AdminHomePage';
 import AdminPutSingleUser from './Components/Admin/AdminPutSingleUser';
 import AdminDeleteUser from './Components/Admin/AdminDeleteUser';
 import ProfilePage from './Components/User/ProfilePage';
@@ -25,6 +24,8 @@ import DeleteComment from './Components/User/DeleteComment';
 import FPemailEntry from './Components/Functions/FPemailEntry';
 import FPPasswordEntry from './Components/Functions/FPPasswordEntry';
 import AdminSingleUser from './Components/Admin/AdminSingleUser';
+import AdminDashBoard from './Components/Admin/AdminDashboard';
+import AdminHomePage from './Components/Admin/AdminHomePage';
 
 function App() {
   //const navigate = useNavigate();
@@ -68,6 +69,7 @@ function App() {
 
 
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
+        <Route path="/AdminDashBoard" element={<AdminElement> <AdminDashBoard/> </AdminElement>}></Route>
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
         <Route path='/AdminSinglePost/:id' element={<AdminElement> <AdminSinglePost/> </AdminElement>}></Route>
         <Route path='/AdminDeleteUser/:id' element={<AdminElement> <AdminDeleteUser/> </AdminElement>}></Route>

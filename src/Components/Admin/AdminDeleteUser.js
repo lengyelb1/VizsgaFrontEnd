@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../../connect2getherUrl.js";
-import AdminNavBar from "./AdminNavBar.js";
+import AdminNavBar from "./Functions/AdminNavBar.js";
 
 export default function AdminDeleteUser (prop) {
     const navigate = useNavigate();

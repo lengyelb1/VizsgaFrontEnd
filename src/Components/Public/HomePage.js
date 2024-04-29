@@ -16,15 +16,8 @@ export default function HomePage () {
         if (localStorage.getItem("token") == undefined || localStorage.getItem("token") == null || localStorage.getItem("token") == "undefined") {
 
         }else{
-            if (jwtDecode(localStorage.getItem("token")).role  == "Default") {
-                console.log("Navigate to UserHomePage")
-                navigate("./UserHomePage");
-            }
-            if (jwtDecode(localStorage.getItem("token")).role  == "Admin") {
-                console.log("Navigate to AdminHomePage")
-                navigate("./AdminHomePage");
-            }
-            
+            console.log("Navigate to UserHomePage")
+            navigate("./UserHomePage");
         }
     },[])
 

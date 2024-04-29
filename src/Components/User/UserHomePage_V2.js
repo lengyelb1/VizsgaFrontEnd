@@ -32,14 +32,6 @@ export default function UserHomePageV2(){
         .finally(() => {
             setFetchPending(false);
         });
-
-
-        
-
-
-
-        
-
     }, [refrDatas]);
 
     //UserHomePageV2 returning 

@@ -44,6 +44,9 @@ export default function LoginPageV2 (props) {
                     
                     localStorage.setItem("token",data);
   
+                    navigate("/AdminHomePage");
+
+
                     if (jwtDecode(localStorage.getItem("token")).role == props.USER_TYPES.ADMIN_USER) {
                       navigate("/AdminHomePage");                      
                     }else{

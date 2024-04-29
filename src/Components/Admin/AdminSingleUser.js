@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { url } from "../../connect2getherUrl";
-import AdminNavBar from "./AdminNavBar";
+import AdminNavBar from "./Functions/AdminNavBar.js";
+
 
 export default function AdminSingleUser() {
 
