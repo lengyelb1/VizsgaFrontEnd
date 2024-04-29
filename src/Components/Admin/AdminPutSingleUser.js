@@ -1,20 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { url } from "../../connect2getherUrl.js";
+import AdminNavBar from "./AdminNavBar.js";
 
 export default function AdminPutSingleUser(prop){
     const navigate = useNavigate();
 
     return (
         <div className='bg-dark vh-100 p-2'>
-            <nav className="navbar navbar-dark bg-dark w-100 border-bottom-green fixed-top shadow">
-                <div className="container-fluid">
-                    <p className="navbar-brand text-danger text-bold fw-bold">Admin</p>
-                    <a className="nav-link text-light" href="../AdminHomePage">Home</a>
-                    <a className="nav-link text-light" href="/" onClick={()=>{
-                        localStorage.setItem("token",undefined)
-                    }}>Log Out</a>
-                </div>
-            </nav>
+            <AdminNavBar/>
             <div className="mt-5">
                 <br/>
                 <h2 className="text-green">Users</h2>

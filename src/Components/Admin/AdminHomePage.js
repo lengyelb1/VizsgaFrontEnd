@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import './AdminHomePage.css';
 import { NavLink } from "react-bootstrap";
 import { url } from "../../connect2getherUrl.js";
+import AdminNavBar from "./AdminNavBar.js";
 
 
 export default function AdminHomePage () {
@@ -40,24 +41,17 @@ export default function AdminHomePage () {
     
     return (
         <div className='bg-dark h-100 p-2'>
-            <nav className="navbar navbar-dark bg-dark w-100 border-bottom-green fixed-top shadow">
-                <div className="container-fluid">
-                    <p className="navbar-brand text-danger text-bold fw-bold">Admin</p>
-                    <a className="nav-link text-light" href="/" onClick={()=>{
-                        localStorage.setItem("token",undefined)
-                    }}>Log Out</a>
-                </div>
-            </nav>
+            <AdminNavBar />
             <div className="mt-5">
                 <br/>
                 <div className="row w-100 mx-auto">
                     <div className="card-green col-12 p-2 vh-50 rounded text-info">
-                        <p class="d-inline-flex gap-1">
-                            <button class="btn btn-green text-info" type="button" data-bs-toggle="collapse" data-bs-target={`#collapseExample${123}`} aria-expanded="false" aria-controls="collapseExample">
+                        <p className="d-inline-flex gap-1">
+                            <button className="btn btn-green text-info" type="button" data-bs-toggle="collapse" data-bs-target={`#collapseExample${123}`} aria-expanded="false" aria-controls="collapseExample">
                                 Suspicius
                             </button>
                         </p>
-                        <div class="collapse" id={`collapseExample${123}`}>
+                        <div className="collapse" id={`collapseExample${123}`}>
                             <div className="overflow-auto" style={{maxHeight:"260px"}}>
                                 <SuspiciusUsersAllKi suspiciusUsers={suspiciusUsers} />
                             </div>

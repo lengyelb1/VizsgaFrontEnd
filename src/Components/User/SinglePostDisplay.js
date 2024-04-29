@@ -27,6 +27,7 @@ export default function SinglePostDisplay(){
         )
         .then((resp)=>{
             setData(resp)
+            console.log(resp)
         })
     },[refrDatas]);
 
