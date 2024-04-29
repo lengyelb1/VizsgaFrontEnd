@@ -10,8 +10,8 @@ export default function AdminSinglePost(){
         .then((r)=>
             r.json()
         )
-        .then((resp)=>
-            setData(resp)
+        .then(async (resp)=>
+            await setData(resp[0])
         )
     },[]);
 

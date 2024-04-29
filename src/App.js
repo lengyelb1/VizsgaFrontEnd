@@ -24,6 +24,7 @@ import DeletePost from './Components/User/DeletePost';
 import DeleteComment from './Components/User/DeleteComment';
 import FPemailEntry from './Components/Functions/FPemailEntry';
 import FPPasswordEntry from './Components/Functions/FPPasswordEntry';
+import AdminSingleUser from './Components/Admin/AdminSingleUser';
 
 function App() {
   //const navigate = useNavigate();
@@ -50,6 +51,10 @@ function App() {
         <Route path="/" element={<PublicElement> <HomePage/> </PublicElement>}></Route>
         <Route path="/Register" element={<PublicElement> <SignUpPage/> </PublicElement>}></Route>
         <Route path="/Login" element={<PublicElement> <LoginPageV2 USER_TYPES = {USER_TYPES}/> </PublicElement>}></Route>
+        <Route path='/Validation/:key' element={<PublicElement> <ValidationSite/> </PublicElement>}></Route>
+        <Route path="/ForgatePasswordEmail" element={<PublicElement> <FPemailEntry/> </PublicElement>}></Route>
+        <Route path="/ForgatePassword/:userId" element={<PublicElement> <FPPasswordEntry/> </PublicElement>}></Route>
+
         <Route path="/UserHomePage" element={<UserElement> <UserHomePageV2/> </UserElement>}></Route>
         <Route path="/SinglePostDisplay/:id" element={<UserElement> <SinglePostDisplay/> </UserElement>}></Route>
         <Route path="/ProfilePage" element={<UserElement> <ProfilePage/> </UserElement>}></Route>
@@ -60,14 +65,14 @@ function App() {
         <Route path="/CommentChange/:id" element={<UserElement> <CommentChange/> </UserElement>}></Route>
         <Route path="/DeletePost/:id" element={<UserElement> <DeletePost/> </UserElement>}></Route>
         <Route path="/DeleteComment/:id" element={<UserElement> <DeleteComment/> </UserElement>}></Route>
-        <Route path="/ForgatePasswordEmail" element={<PublicElement> <FPemailEntry/> </PublicElement>}></Route>
-        <Route path="/ForgatePassword/:userId" element={<PublicElement> <FPPasswordEntry/> </PublicElement>}></Route>
+
 
         <Route path="/AdminHomePage" element={<AdminElement> <AdminHomePage/> </AdminElement>}></Route>
         <Route path='/AdminPutSingleUser/:id' element={<AdminElement> <AdminPutSingleUser/> </AdminElement>}></Route>
         <Route path='/AdminSinglePost/:id' element={<AdminElement> <AdminSinglePost/> </AdminElement>}></Route>
         <Route path='/AdminDeleteUser/:id' element={<AdminElement> <AdminDeleteUser/> </AdminElement>}></Route>
-        <Route path='/Validation/:key' element={<PublicElement> <ValidationSite/> </PublicElement>}></Route>
+        <Route path='/AdminSingleUser/:id' element={<AdminElement> <AdminSingleUser/> </AdminElement>}></Route>
+
         <Route path="*" element={<NotFound404/>}></Route>
       </Routes>
     </BrowserRouter>

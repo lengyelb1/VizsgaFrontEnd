@@ -50,15 +50,21 @@ export default function AdminHomePage () {
             </nav>
             <div className="mt-5">
                 <br/>
-                <div className="row w-100">
-                    <div className="card-green col-12 p-2 vh-50 rounded text-info mx-auto">
-                        <p>Suspicius</p>
-                        <div className="overflow-auto" style={{maxHeight:"260px"}}>
-                            <SuspiciusUsersAllKi suspiciusUsers={suspiciusUsers} />
+                <div className="row w-100 mx-auto">
+                    <div className="card-green col-12 p-2 vh-50 rounded text-info">
+                        <p class="d-inline-flex gap-1">
+                            <button class="btn btn-green text-info" type="button" data-bs-toggle="collapse" data-bs-target={`#collapseExample${123}`} aria-expanded="false" aria-controls="collapseExample">
+                                Suspicius
+                            </button>
+                        </p>
+                        <div class="collapse" id={`collapseExample${123}`}>
+                            <div className="overflow-auto" style={{maxHeight:"260px"}}>
+                                <SuspiciusUsersAllKi suspiciusUsers={suspiciusUsers} />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="row mt-3 w-100">
+                <div className="row mt-3 w-100 card card-green mx-auto p-2">
                     <div className="col-6 overflow-auto">
                         <p className="text-green">Users: {userDb}</p>
                     </div>
@@ -156,12 +162,15 @@ export default function AdminHomePage () {
                 return params.posts.map((post) => (
                     <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                         <div className='card-body '>
-                            <a href={`/AdminSinglePost/${post.id}`} className="text-light text-decoration-none">
-                                <h5 className='text-light'>{post.userId}</h5>
+                                <a href={`/AdminSingleUser/${post.userId}`}><h5 className='text-light'>{post.userId}</h5></a>
                                 {console.log(post)}
+
                                 <h5 className=''>{post.title}</h5>
                                 <div className='small'>{post.description}</div>
-                            </a>
+                                <br/>
+                                <a href={`/AdminSinglePost/${post.id}`} className="text-light text-decoration-none">
+                                    <button className="btn btn-green">Details</button>
+                                </a>
                         </div>
                         <div className='text-green align-middle'>
                             Likes: {post.like}
