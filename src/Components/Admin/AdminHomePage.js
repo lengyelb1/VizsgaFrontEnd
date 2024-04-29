@@ -40,7 +40,7 @@ export default function AdminHomePage () {
     },[])
     
     return (
-        <div className='bg-dark h-100 p-2'>
+        <div className='bg-dark min-vh-50 p-2'>
             <AdminNavBar />
             <div className="mt-5">
                 <br/>
