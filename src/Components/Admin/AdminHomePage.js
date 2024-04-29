@@ -7,6 +7,7 @@ import { url } from '../../connect2getherUrl.js';
 import { DarkModeBodySetter, DarkModeLogoText, DarkModeSwitch, DisplayDarkModeLogos, LightModeLogoText } from '../Functions/DarkModeFunctions.js';
 import { LikeButton, PostsKi } from '../Functions/UserFunctions.js';
 import { AdminNavBarWithSearch, MyNavBarWithSearch } from './Functions/AdminNavBar.js';
+import { AdminPostsKi } from './Functions/AdminFunctions.js';
 
 export default function AdminHomePage(){
 
@@ -26,7 +27,7 @@ export default function AdminHomePage(){
         fetch(`${url}/UserPost/UserPostWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}`, {headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`,'content-type': 'application/json'}})
         .then((res) => res.json())
         .then((data) => {
-            setFeed(<div><br/><br/><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><PostsKi posts={data} refreshDatas={refreshDatas} refrDatas={refrDatas}/></div>);
+            setFeed(<div><br/><br/><NewPost refreshDatas = {refreshDatas} refrDatas ={refrDatas}/><AdminPostsKi posts={data} refreshDatas={refreshDatas} refrDatas={refrDatas}/></div>);
         })
         .catch(console.log)
         .finally(() => {

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import NewComment from '../../Functions/NewComment';
 import NewPost from '../../Functions/NewPost.js';
 import '../../User/UserHomePage.css';
+import '../AdminDashBoard.css'
 import { jwtDecode } from 'jwt-decode';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { url } from '../../../connect2getherUrl.js';
@@ -36,7 +37,7 @@ export default function AdminNavBar(params){
                 </div>
                 <div className="nav-item float-right">
                     <Dropdown id='btn-profile'>
-                      <Dropdown.Toggle variant="" className={`btn-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-green"}`} id="dropdown-basic">
+                      <Dropdown.Toggle variant="" className={`btn-green ${localStorage.getItem("darkMode")==0? "bg-dark text-green":"bg-light text-dark "}`} id="dropdown-basic">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
                           <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
                         </svg>
@@ -166,7 +167,7 @@ function AlertMessages(params){
     return(
         params.messages.map((msg)=>{
             return(
-                <Dropdown.Item key={msg.id} className={`btn-profile-menu ${localStorage.getItem("darkMode")==0? "light":"dark"}`}><div className='text-green'>{msg.title}</div><div className='text-light'>{msg.description}</div><hr/></Dropdown.Item>
+                <Dropdown.Item key={msg.id} className={`btn-profile-menu dropdown-item ${localStorage.getItem("darkMode")==0? "light":"dark"}`}><div className='text-green'>{msg.title}</div><div className='text-light'>{msg.description}</div><hr/></Dropdown.Item>
             )
         })
     )

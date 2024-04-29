@@ -1,10 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../../connect2getherUrl.js";
 import AdminNavBar from "./Functions/AdminNavBar.js";
+import { useEffect, useState } from "react";
 
 
 export default function AdminPutSingleUser(prop){
+    const props = useParams();
+    const [data,setData] = useState();
+    const [refrDatas,refreshDatas] = useState(0)
+    const [isFetchPending, setFetchPending] = useState(false);
+
     const navigate = useNavigate();
+
 
     return (
         <div className='bg-dark vh-100 p-2'>
@@ -26,15 +33,15 @@ export default function AdminPutSingleUser(prop){
                     }}>
                         <div class="mb-3">
                           <label for="username" class="form-label">User name</label>
-                          <input type="text" class="form-control" id="username"/>
+                          <input type="text" class="form-control input-green" id="username"/>
                         </div>
                         <div class="mb-3">
                           <label for="exampleInputEmail1" class="form-label">Email address</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1"/>
+                          <input type="email" class="form-control input-green" id="exampleInputEmail1"/>
                         </div>
                         <div class="mb-3">
                           <label for="permissionId" class="form-label">Permission Id</label>
-                          <input type="number" class="form-control" id="permissionId"/>
+                          <input type="number" class="form-control input-green" id="permissionId"/>
                         </div>
                         <button type="submit" class="btn btn-green">Submit</button>
                     </form>
