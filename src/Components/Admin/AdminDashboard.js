@@ -159,7 +159,7 @@ export default function AdminDashBoard () {
                 return params.posts.map((post) => (
                     <div key={post.id + 1} className='card col-md-5 p-2 bg-dark text-light mx-auto mt-3 border border-dark shadow-green'>
                         <div className='card-body '>
-                                <a href={`/AdminSingleUser/${post.userId}`}><h5 className='text-light'>{post.userId}</h5></a>
+                                <a href={`/AdminSingleUser/${post.userId}`}><h5 className='text-light'>{post.userName}</h5></a>
                                 {console.log(post)}
 
                                 <h5 className=''>{post.title}</h5>
@@ -196,10 +196,7 @@ export default function AdminDashBoard () {
                         return(
                             <div key={x.id} className="card-green p-2 mb-1">
                                 <p>Username: {x.user.username}</p>
-                                <p>Email: {x.user.email}</p>
-                                <p>Point: {x.user.point}</p>
-                                <p>Last login: {x.user.lastLogin}</p>
-                                <p>Registration date: {x.user.registrationDate}</p>
+                                <p>Description: {x.description}</p>
                                 <a className="btn btn-danger ms-2" onClick={async() => {
                                     fetch(`${url}/Moderator/DeleteSuspiciousById?id=${x.id}`,{method:"DELETE",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
                                     .catch((x)=>console.log(x))

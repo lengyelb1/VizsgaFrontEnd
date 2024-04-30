@@ -20,7 +20,13 @@ export default function HomePage () {
             if (jwtDecode(localStorage.getItem("token")).role) {
                 
             }else{
-                navigate("./UserHomePage");
+
+                if (jwtDecode(localStorage.getItem("token")).role == "Admin") {
+                    navigate("./AdminHomePage");
+                }else{
+                    navigate("./UserHomePage");
+                }
+
             }
         }
     },[])
