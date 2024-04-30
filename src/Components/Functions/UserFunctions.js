@@ -149,10 +149,9 @@ export function CommentsKi (params) {
 export function UsersKi (params) {
     return params.users.map((user) => (
         <div key={user.id} id={`user-${user.id}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-            <p className='card-title'>{user.username}</p>
-            <div className='card-body p-1 mx-auto'>
-                <p className=''>Points: {user.point}</p>
-            </div>
+            <a className='card-body text-decoration-none ' href={`/SingleDisplayUser/${user.userId}`}>
+                <h5 className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{user.userName}</h5>
+            </a>            
         </div>
     ))
 }

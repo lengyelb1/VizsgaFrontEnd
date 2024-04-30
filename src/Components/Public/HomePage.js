@@ -17,7 +17,11 @@ export default function HomePage () {
 
         }else{
             console.log("Navigate to UserHomePage")
-            navigate("./UserHomePage");
+            if (jwtDecode(localStorage.getItem("token")).role) {
+                
+            }else{
+                navigate("./UserHomePage");
+            }
         }
     },[])
 
