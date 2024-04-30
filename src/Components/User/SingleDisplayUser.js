@@ -1,86 +1,89 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-import NewComment from "../Functions/NewComment";
-import NewPost from '../Functions/NewPost';
-import { jwtDecode } from 'jwt-decode';
 import { url } from "../../connect2getherUrl.js";
-import Dropdown from 'react-bootstrap/Dropdown';
-import { DarkModeBodySetter, DarkModeSwitch, DisplayDarkModeLogos } from "../Functions/DarkModeFunctions";
+import NewComment from "../Functions/NewComment";
+import { jwtDecode } from "jwt-decode";
+import { DarkModeSwitch, DisplayDarkModeLogos } from "../Functions/DarkModeFunctions";
+import { Dropdown } from "react-bootstrap";
 import MyNavBar from "../Functions/MyNavBar.js";
 import { DislikeButton } from "../Functions/UserFunctions.js";
 
-export default function SinglePostDisplay(){
+export default function SingleDisplayUser () {
+
     const prop = useParams();
     const [data,setData] = useState();
     const [refrDatas,refreshDatas] = useState(0)
     const [isFetchPending, setFetchPending] = useState(false);
     const navigate = useNavigate();
-    
 
     useEffect(()=>{
-
-        DarkModeBodySetter();
-
-        fetch(`${url}/UserPost/UserPostByIdWithLike?userId=${jwtDecode(localStorage.getItem("token")).id}&postId=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+        setFetchPending(true)
+        fetch(`${url}/User/UserById?id=${prop.id}`,{method:"GET",headers:{'Authorization': `Bearer ${localStorage.getItem('token')}`}})
         .then((r)=>
             r.json()
         )
-        .then((resp)=>{
+        .then((resp)=>
             setData(resp)
-            console.log(resp)
-        })
-    },[refrDatas]);
+        )
+        .finally(()=>{setFetchPending(false)})
+    },[refrDatas])
 
-    if (data != null) {
+    return(
+        <div className={`min-vh-100 ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
+            <MyNavBar refrDatas={refrDatas} refreshDatas={refreshDatas}/>
+            <br className="mt-5"/>
+            <br className="mt-5"/>
+            
+            <div>
+                <UserKi data= {data} isFetchPending={isFetchPending}/>
+            </div>
+
+        </div>
+    )
+
+    function UserKi(params){
+        const data = params.data
+        const isFetchPending = params.isFetchPending;
+        if (isFetchPending || data === undefined) {
             return(
-                <div className={`vh-100 ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`} >
-                    <MyNavBar refrDatas={refrDatas} refreshDatas={refreshDatas}/>
-                    <br/>
-                    <br/>
-                    <div key={data.id + 1} className={`card col-md-5 p-2 mx-auto mt-4 border border-dark shadow-green ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
-                        <a className="nav-link" onClick={async ()=>{await navigate(-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
-                        <div className='card-body'>
-                            <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${data.userId}`}>
-                                <h5 className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{data.userName}</h5>
-                            </a>
-                            <h5 className=''>{data.title}</h5>
-                            <div className='small'>{data.description}</div>
-                        </div>
-                        <div className='text-green align-middle'>
-                            {data.like}
-                            <LikeButton post = {data}/>
-                            {data.dislike}
-                            <DislikeButton post = {data} refreshDatas={refreshDatas} refrDatas={refrDatas}/>
-                        </div>
-                        <div>
-                            <CommentsKi post={data}/>
-                        </div>
+                <div className="spinner-border text-green" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+            )
+        }else{
+            return(
+                <div className={`col-9 p-2 mx-auto mt-4  ${localStorage.getItem("darkMode")==0? "bg-light text-dark":"bg-dark text-light"}`}>
+                    <div className='constent p-2'>
+                        {console.log(data)}
+                        <a className="nav-link" onClick={async ()=>{await navigate(-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill={localStorage.getItem("darkMode")==0? "black":"#A8F231"} className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg></a>
+                        <h3 className='text-green'>{data[0].username}</h3>
+                        <h5 className=''>Last Login: {data[0].lastLogin.replace("T"," ")}</h5>
+                        <h5 className=''>Registration Date: {data[0].registrationDate.replace("T00:00:00","")}</h5>
+                        <h5 className='text-green'>Rank: {data[0].rank.name}</h5>
+                        <h5 className='text-green'>Points: {data[0].points}</h5>
+
+                        <div className='small'></div>
+                    </div>
+                    <div className='text-green align-middle'>
+                        <hr className="border-3"/>
+                    </div>
+                    <div>
+                        <PostsKi posts={data[0].userPosts}/>
                     </div>
                 </div>
             )
-       
-        
+        }
     }
-    else{
-        // If data empty this load a spinner
-        return (
-            <div className='bg-dark vh-100 text-center text-green'>
-                <div className="spinner-border " role="status">
-                    <span className="visually-hidden text-green">Loading...</span>
-                </div>
-            </div>
-            )
-    }
-    
+ 
     function CommentsKi (params) {
         if (params.post.comments != null && params.post.comments != "null") {
             return (
                 <div>
                     {params.post.comments.map((comment) => {
-                        if (comment.user) {
+                        if (comment.userName) {
                             return (<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                                <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${comment.userId}`}>
-                                    <p className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userName}</p>
+                                <a className='text-decoration-none ' href={`/SingleDisplayUser/${comment.userId}`}>
+                                    <p className={`card-title postUserName ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userName}</p>
                                 </a>
                                 <div className='card-body p-1 mx-auto'>
                                     <p className=''>{comment.text}</p>
@@ -88,17 +91,15 @@ export default function SinglePostDisplay(){
                             </div>)
                         }else{
                             return(<div key={params.post.id+(comment.id+1)} id={`commnet-${params.post.id+(comment.id)}`} className='card card-green col-12 d-inline-block m-1 p-1 '>
-                                <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${comment.userId}`}>
-                                    <p className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userName}</p>
+                                <a className='text-decoration-none' href={`/SingleDisplayUser/${comment.userId}`}>
+                                    <p className={`card-title postUserName ${localStorage.getItem("darkMode")==0? "dark":""}`}>{comment.userId}</p>
                                 </a>
                                 <div className='card-body p-1 mx-auto'>
                                     <p className=''>{comment.text}</p>
                                 </div>
                             </div>)
                         }
-
                     })}
-                    <NewComment postId={params.post.id} userId={1} refreshDatas={refreshDatas}/>
                 </div>
             )    
         }else{
@@ -110,6 +111,7 @@ export default function SinglePostDisplay(){
 
     function LikeButton(params){
         var post = params.post
+        console.log("Post liked: "+post)
         if (post.liked) {
             return(
                 <button className='btn rounded' onClick={
@@ -124,6 +126,9 @@ export default function SinglePostDisplay(){
                         .finally( () => {
                             setFetchPending(false)
                             refreshDatas(refrDatas+1)
+                        })
+                        .catch((e) => {
+                            console.log(e)
                         })
                     }
                 }>
@@ -156,5 +161,56 @@ export default function SinglePostDisplay(){
             )
         }
     }
+    function PostsKi (params) {
+        if (isFetchPending) {
+            return (
+                <div className=' text-center text-green mt-5'>
+                    <div className="spinner-border " role="status">
+                        <span className="visually-hidden text-green">Loading...</span>
+                    </div>
+                </div>
+            )
+        }else{
+            if (params.posts.length < 1) {
+                return (
+                    <div className=' text-center text-green mt-5'>
+                        <h4>No post found</h4>
+                    </div>
+                )
+            }
+            else{
+                return (params.posts.map((post) => <Post_ key={post.id + 2} post={post}/>))
+            }
+        }
+    }
+    function Post_ (params) {
+        const post = params.post
+        /*Post card render */
+        return (
+            <div key={post.id + 1} className={`card col-md-5 p-2 mx-auto mt-3 border border-dark shadow-green ${localStorage.getItem("darkMode")==0? "text-dark ":"bg-dark text-light"}`}>
+                <a className='card-title text-decoration-none' href={`/SingleDisplayUser/${post.userId}`}>
+                    <p className={`postUserName  ${localStorage.getItem("darkMode")==0? "dark":""}`}>{post.userName}</p>
+                </a>
 
+                <a className='card-body text-decoration-none' href={`/SinglePostDisplay/${post.id}`}>
+                    <h5 className=''>{post.title}</h5>
+                    <div className='small'>{post.description}</div>
+                </a>
+                <div className='text-green align-middle'>
+                    {post.like}
+                    
+                    <LikeButton post = {post}/>
+
+                    {post.dislike}
+                    <DislikeButton post = {post} refreshDatas={refreshDatas} refrDatas={refrDatas}/>
+                    
+                </div>
+                <div>
+                    
+                    <CommentsKi post={post}/>
+                    <NewComment refreshDatas = {refreshDatas} refrDatas ={refrDatas} postId={post.id}/>
+                </div>
+            </div>
+        )
+    }
 }

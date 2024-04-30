@@ -1,8 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Logo from './Back4.png';
+import Logo from '../Back4.png';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import {url, url2} from '../../connect2getherUrl.js'
+import { Alert } from 'react-bootstrap';
+
 
 
 export default function SignUpPage () {
@@ -14,11 +17,14 @@ export default function SignUpPage () {
         </div>
         <div className="d-flex vw-100" style={{ background: '#A8F231'}}>
           <div className="d-flex vw-100" style={{ borderRadius:'0px 50px 0px 0px', overflow:'hidden'}}>
-              <Form className='bg-dark p-2 vw-100' onSubmit={(e)=>{
+              <Form className='bg-dark p-2 vw-100' onSubmit={async (e)=>{
                 e.preventDefault();
-                axios({
+                e.target.SubmitButton.innerHTML = `<div className="spinner-border text-green" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>`
+                await axios({
                   method: 'post',
-                  url: 'http://localhost:7043/Auth/Register',
+                  url: `${url}/Auth/Register?validationUrl=${url2}/Validation/`,
                   data: {
                     userName: document.getElementById('username').value,
                     password: document.getElementById('password').value,
@@ -26,10 +32,17 @@ export default function SignUpPage () {
                   }
                 })
                 .then((resp) => {
-                  navigate("Login")
+                  alert("Check your email for verification link!");
+                  navigate("../Login")
                 })
                 .catch((error)=> {
                   console.log(error)
+                  if (error.response && error.response.data) {
+                    alert(error.response.data)                    
+                  }
+                })
+                .finally(()=>{
+                  e.target.SubmitButton.innerHTML = `Submit`
                 })
               }}>
                 <Form.Label className='h1'>Sign Up</Form.Label>
@@ -45,7 +58,7 @@ export default function SignUpPage () {
                   <Form.Label>Password</Form.Label>
                   <Form.Control id="password" type="password" placeholder="Password"/>
                 </Form.Group>
-                <Button variant="Dark" className='hover-overlay text-dark fw-bold hover-shadow float-end' type="submit" style={{background: '#A8F231'}}>
+                <Button variant="Dark" name='SubmitButton' className='hover-overlay text-dark fw-bold hover-shadow float-end bg-green' type="submit">
                   Submit
                 </Button>
               </Form>
